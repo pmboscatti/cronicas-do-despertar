@@ -16,12 +16,43 @@ public class BuscaLargura : MonoBehaviour
     int verticeOrigem;
 
     GeradorGrafo grid;
+
+    void Awake()
+    {
+        grid = GetComponent<GeradorGrafo>();
+    }
+
+    private void Update()
+    {
+        buscaLargura(grid.NodeFromWorldPoint(Origem.transform.position).id);
+    }
+
+
     /**
     * Efetua uma busca em largura a partir de um grid, a partir do @param p
     */
-    BuscaLargura(GeradorGrafo grid)
+    BuscaLargura()
     {
-        Vertice origem = grid.NodeFromWorldPoint(Origem.transform.position);
+        //Vertice origem = grid.NodeFromWorldPoint(Origem.transform.position);
+        //Vertice destino = grid.NodeFromWorldPoint(Destino.transform.position);
+
+        //int tamanho = grid.gridSize;
+        //l = new int[tamanho + 1];
+        //nivel = new int[tamanho + 1];
+        //pai = new int[tamanho + 1]; 
+        //t = 0;
+        //fila = new Queue<int>();
+        //verticeProcurado = destino.id;
+        //verticeOrigem = origem.id;
+
+        //buscaLargura(verticeOrigem);
+    }
+    /**
+    *
+    */
+    public Stack<Vertice> buscaLargura(int v)
+    {
+
         Vertice destino = grid.NodeFromWorldPoint(Destino.transform.position);
 
         int tamanho = grid.gridSize;
@@ -31,16 +62,8 @@ public class BuscaLargura : MonoBehaviour
         t = 0;
         fila = new Queue<int>();
         verticeProcurado = destino.id;
-        verticeOrigem = origem.id;
-        this.grid = grid;
+        verticeOrigem = v;
 
-        buscaLargura(verticeOrigem);
-    }
-    /**
-    *
-    */
-    public Stack<int> buscaLargura(int v)
-    {
 
         t++;
         fila.Enqueue(verticeOrigem);
@@ -76,18 +99,19 @@ public class BuscaLargura : MonoBehaviour
     /**
     a partir do vetor de pai retorna o menor caminho para o vértice de origem
     */
-    private Stack<int> getCaminho(int v)
+    private Stack<Vertice> getCaminho(int v)
     {
-        Stack<int> pilha = new Stack<int>();
+        Stack<Vertice> pilha = new Stack<Vertice>();
         int x = pai[verticeProcurado];
 
         while (pai[x] != v)
         {
-            pilha.Push(pai[x]);
+            pilha.Push(grid.getVertice(pai[x]));
             x = pai[x];
         }
 
-        pilha.Push(v);
+        pilha.Push(grid.getVertice(v));
+        grid.caminho = pilha;
 
         return pilha;
     }

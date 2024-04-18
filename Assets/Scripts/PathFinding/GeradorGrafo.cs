@@ -101,7 +101,7 @@ public class GeradorGrafo : MonoBehaviour
     }
 
 
-    private Vertice getVertice(int v)
+    public Vertice getVertice(int v)
     {
         Vertice vertice = null;
 
@@ -150,7 +150,7 @@ public class GeradorGrafo : MonoBehaviour
 
                 if (vizinhoX >= 0 && vizinhoX < gridSizeX && vizinhoY >= 0 && vizinhoY < gridSizeY)
                 {
-                    list.Add( grid[vizinhoX,vizinhoY].id );
+                    if(grid[vizinhoX, vizinhoY] != null) list.Add( grid[vizinhoX,vizinhoY].id );
                 }
 
             }
@@ -159,6 +159,7 @@ public class GeradorGrafo : MonoBehaviour
     }
 
 
+    public Stack<Vertice> caminho;
     void OnDrawGizmos()
     {
         if(useZAxis) Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
@@ -172,7 +173,7 @@ public class GeradorGrafo : MonoBehaviour
                 // Node playerNode = NodeFromWorldPoint(player.position);
                 if (n != null)
                 {
-                    Gizmos.color = (n.walkable) ? Color.white : Color.red;
+                  Gizmos.color = (n.walkable) ? Color.white : Color.red;
                     //if (n == playernode)
                     //{
                     //    gizmos.color = color.green;
@@ -181,8 +182,17 @@ public class GeradorGrafo : MonoBehaviour
                     //{
                     //    if (n == v) gizmos.color = color.yellow;
                     //}
+                    //Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter - .1f));
+                    if (caminho != null)
+                    {
+                        if (caminho.Contains(n))
+                        {
+                            Gizmos.color = Color.black;
+                        }
+                    }
                     Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter - .1f));
                 }
+
             }
         }
     }
