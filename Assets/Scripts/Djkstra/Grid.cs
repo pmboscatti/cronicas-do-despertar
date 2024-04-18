@@ -15,12 +15,14 @@ public class Grid : MonoBehaviour
     public Vector2 gridWorldSize;
     public float nodeRadius;
     Node[,] grid;
+    private int contador;
 
     float nodeDiameter;
     int gridSizeX, gridSizeY;
 
     void Start()
     {
+        contador = 1;
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
@@ -52,7 +54,7 @@ public class Grid : MonoBehaviour
 
 
                 if (!outside) 
-                    grid[x, y] = new Node(true, worldPoint, x, y);
+                    grid[x, y] = new Node(contador++, true, worldPoint, x, y);
             }
         }
     }   
@@ -136,10 +138,14 @@ public class Grid : MonoBehaviour
                     //{
                     //    gizmos.color = color.green;
                     //}
-                    //foreach (node v in getneighbours(playernode))
-                    //{
-                    //    if (n == v) gizmos.color = color.yellow;
-                    //}
+                    foreach (Node v in GetNeighbours(n))
+                    {
+                        if (n == v) Gizmos.color = Color.yellow;
+                        
+
+                    }
+
+
                     Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter - .1f));
                 }
             }
