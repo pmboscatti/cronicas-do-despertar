@@ -15,13 +15,15 @@ public class GeradorGrafo : MonoBehaviour
     public bool useZAxis = false;
     public Vector2 gridWorldSize;
     public float nodeRadius;
+    public Transform player;
     Vertice[,] grid;
 
+
     float nodeDiameter;
-    int gridSizeX, gridSizeY;
+    float gridSizeX, gridSizeY;
     int contador;
 
-    public int gridSize
+    public float gridSize
     {
         get { return (gridSizeX * gridSizeY); }
     }
@@ -37,7 +39,7 @@ public class GeradorGrafo : MonoBehaviour
 
     void CreateGrid()
     {
-        grid = new Vertice[gridSizeX, gridSizeY];
+        grid = new Vertice[(int) gridSizeX, (int) gridSizeY];
         Vector3 direcao2 = (useZAxis ? Vector3.up : Vector3.forward);
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - direcao2 * gridWorldSize.y / 2;
         
@@ -59,8 +61,11 @@ public class GeradorGrafo : MonoBehaviour
 
 
 
-                if (!outside) 
+                if (!outside)
+                {
                     grid[x, y] = new Vertice(contador++, true, worldPoint, x, y);
+                    print(grid[x, y].id);
+                }
             }
         }
     }   
@@ -68,7 +73,8 @@ public class GeradorGrafo : MonoBehaviour
     public Vertice NodeFromWorldPoint(Vector3 worldPosition)
     {
         float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
-        float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
+        float d2 = (useZAxis ? worldPosition.y : worldPosition.z);
+        float percentY = (d2 + gridWorldSize.y / 2) / gridWorldSize.y;
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
 
@@ -170,19 +176,18 @@ public class GeradorGrafo : MonoBehaviour
         {
             foreach (Vertice n in grid)
             {
-                // Node playerNode = NodeFromWorldPoint(player.position);
+                Vertice playernode = NodeFromWorldPoint(player.position);
                 if (n != null)
                 {
                   Gizmos.color = (n.walkable) ? Color.white : Color.red;
-                    //if (n == playernode)
-                    //{
-                    //    gizmos.color = color.green;
-                    //}
-                    //foreach (node v in getneighbours(playernode))
-                    //{
-                    //    if (n == v) gizmos.color = color.yellow;
-                    //}
-                    //Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter - .1f));
+                    if (n == playernode)
+                    {
+                        Gizmos.color = Color.green;
+                    }
+                    foreach (Vertice v in GetNeighbours(playernode))
+                    {
+                        if (n == v) Gizmos.color = Color.yellow;
+                    }
                     if (caminho != null)
                     {
                         if (caminho.Contains(n))

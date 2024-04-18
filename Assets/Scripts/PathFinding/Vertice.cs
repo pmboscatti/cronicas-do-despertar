@@ -15,6 +15,7 @@ public class Vertice
     
     public Vertice(int id, bool _walkable, Vector3 _worldPos, int _xPos, int _yPos)
     {
+        this.id = id;
         xPos = _xPos;
         yPos = _yPos;
         walkable = _walkable;

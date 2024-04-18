@@ -25,6 +25,8 @@ public class BuscaLargura : MonoBehaviour
     private void Update()
     {
         buscaLargura(grid.NodeFromWorldPoint(Origem.transform.position).id);
+        print(grid.NodeFromWorldPoint(Origem.transform.position));
+        print(grid.NodeFromWorldPoint(Origem.transform.position).id);
     }
 
 
@@ -55,13 +57,14 @@ public class BuscaLargura : MonoBehaviour
 
         Vertice destino = grid.NodeFromWorldPoint(Destino.transform.position);
 
-        int tamanho = grid.gridSize;
+        int tamanho = (int) grid.gridSize;
+        print(tamanho + 1);
         l = new int[tamanho + 1];
         nivel = new int[tamanho + 1];
         pai = new int[tamanho + 1];
         t = 0;
         fila = new Queue<int>();
-        verticeProcurado = destino.id;
+        verticeProcurado = destino.id;  
         verticeOrigem = v;
 
 
@@ -77,10 +80,17 @@ public class BuscaLargura : MonoBehaviour
         {
             int v = fila.Dequeue();
             List<int> lista = grid.GetNeighbours(v);
+            print("Começo");
+            foreach(int n in lista)
+            {
+                print(n);
+            }
+            print("Fim");
             while (lista.Count > 0)
             {
-                int w = lista.IndexOf(0);
+                int w = lista[0];
                 lista.RemoveAt(0);
+                print(w);
                 if (l[w] == 0)
                 {
                     t++;
@@ -103,6 +113,7 @@ public class BuscaLargura : MonoBehaviour
     {
         Stack<Vertice> pilha = new Stack<Vertice>();
         int x = pai[verticeProcurado];
+        pilha.Push(grid.getVertice(x));
 
         while (pai[x] != v)
         {
