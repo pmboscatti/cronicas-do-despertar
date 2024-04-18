@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node
+public class Vertice
 {
     public bool walkable;
     public Vector3 worldPos;
@@ -10,8 +10,10 @@ public class Node
 
     public int xPos;
     public int yPos;
+
+    public int id;
     
-    public Node(bool _walkable, Vector3 _worldPos, int _xPos, int _yPos)
+    public Vertice(int id, bool _walkable, Vector3 _worldPos, int _xPos, int _yPos)
     {
         xPos = _xPos;
         yPos = _yPos;

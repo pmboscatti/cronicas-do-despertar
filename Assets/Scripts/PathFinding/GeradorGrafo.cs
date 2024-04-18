@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 
-public class Grid : MonoBehaviour
+public class GeradorGrafo : MonoBehaviour
 {
     // public Transform player;
     public Tilemap terreno;
@@ -14,13 +15,20 @@ public class Grid : MonoBehaviour
     public bool useZAxis = false;
     public Vector2 gridWorldSize;
     public float nodeRadius;
-    Node[,] grid;
+    Vertice[,] grid;
 
     float nodeDiameter;
     int gridSizeX, gridSizeY;
+    int contador;
+
+    public int gridSize
+    {
+        get { return (gridSizeX * gridSizeY); }
+    }
 
     void Start()
     {
+        contador = 0;
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
@@ -29,7 +37,7 @@ public class Grid : MonoBehaviour
 
     void CreateGrid()
     {
-        grid = new Node[gridSizeX, gridSizeY];
+        grid = new Vertice[gridSizeX, gridSizeY];
         Vector3 direcao2 = (useZAxis ? Vector3.up : Vector3.forward);
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - direcao2 * gridWorldSize.y / 2;
         
@@ -52,12 +60,12 @@ public class Grid : MonoBehaviour
 
 
                 if (!outside) 
-                    grid[x, y] = new Node(true, worldPoint, x, y);
+                    grid[x, y] = new Vertice(contador++, true, worldPoint, x, y);
             }
         }
     }   
 
-    public Node NodeFromWorldPoint(Vector3 worldPosition)
+    public Vertice NodeFromWorldPoint(Vector3 worldPosition)
     {
         float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
         float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
@@ -69,9 +77,9 @@ public class Grid : MonoBehaviour
         return grid[x, y];
     }
 
-    public List<Node> GetNeighbours(Node node)
+    public List<Vertice> GetNeighbours(Vertice node)
     {
-        List<Node> list = new List<Node>();
+        List<Vertice> list = new List<Vertice>();
 
         for(int x = -1; x <= 1; x++)
         {
@@ -91,9 +99,45 @@ public class Grid : MonoBehaviour
         }
         return list;
     }
-    public List<int[]> GetPosNeighbours(Node node)
+
+
+    private Vertice getVertice(int v)
     {
-        List<int[]> list = new List<int[]>();
+        Vertice vertice = null;
+
+        for (int i = 0; i < gridSizeX; i++)
+        {
+            for (int j = 0; j < gridSizeY; j++)
+            {
+                if (grid[i, j] != null && grid[i, j].id == v)
+                {
+                    vertice = grid[i, j];
+                    break;
+                }
+            }
+        }
+
+        return vertice;
+
+    }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    /// <param name="vertice"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception">Retorna exceção se o vertice não for encontrado</exception>
+    public List<int> GetNeighbours(int vertice)
+    {
+        Vertice node = getVertice(vertice);
+
+        if (node == null)
+        {
+            throw new Exception("Vertice não existente");
+
+        }
+
+        List<int> list = new List<int>();
 
         for (int x = -1; x <= 1; x++)
         {
@@ -106,10 +150,7 @@ public class Grid : MonoBehaviour
 
                 if (vizinhoX >= 0 && vizinhoX < gridSizeX && vizinhoY >= 0 && vizinhoY < gridSizeY)
                 {
-                    int[] posVizinho = new int[2];
-                    posVizinho[0] = vizinhoX;
-                    posVizinho[1] = vizinhoY;
-                    list.Add( posVizinho );
+                    list.Add( grid[vizinhoX,vizinhoY].id );
                 }
 
             }
@@ -126,7 +167,7 @@ public class Grid : MonoBehaviour
 
         if (grid != null)
         {
-            foreach (Node n in grid)
+            foreach (Vertice n in grid)
             {
                 // Node playerNode = NodeFromWorldPoint(player.position);
                 if (n != null)
