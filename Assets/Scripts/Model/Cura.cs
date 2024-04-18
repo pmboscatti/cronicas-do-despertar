@@ -1,4 +1,4 @@
 
 class Cura: Acao{
-    private int cura;
+    public int cura;
 }

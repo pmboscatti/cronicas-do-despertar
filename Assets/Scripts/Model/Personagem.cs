@@ -1,16 +1,16 @@
 class Personagem
 {
-    private string nome;
-    private int hp;
-    private int def;
-    private int atk;
-    private int spatk;
-    private int spdef;
-    private int velocidade;
-    private Ataque[] ataques;
-    private Magia[] magias;
-    private Status[] status;
-    private Cura[] curas;
+    public string nome;
+    public int hp;
+    public int def;
+    public int atk;
+    public int spatk;
+    public int spdef;
+    public int velocidade;
+    public Ataque[] ataques;
+    public Magia[] magias;
+    public Status[] status;
+    public Cura[] curas;
      /*
         lógica de buff e debuff, baseado em modifier
     */

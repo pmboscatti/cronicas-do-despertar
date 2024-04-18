@@ -1,8 +1,8 @@
 class Acao{
-    private string nome;
-    private int pp;//powerpoint
-    private int alcance;
-    private bool erraAcao()
+    public string nome;
+    public int pp;//powerpoint
+    public int precisao;
+    public bool erraAcao()
     {
         return RNJesus.erraAcao(precisao);
     }
