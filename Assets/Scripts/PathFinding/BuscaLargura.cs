@@ -24,9 +24,7 @@ public class BuscaLargura : MonoBehaviour
 
     private void Update()
     {
-        //buscaLargura(grid.NodeFromWorldPoint(Origem.transform.position).id);
-        //print(grid.NodeFromWorldPoint(Origem.transform.position));
-        //print(grid.NodeFromWorldPoint(Origem.transform.position).id);
+        // buscaLargura(grid.GetVerticeFromPosition(Origem.transform.position).id);
     }
 
 
@@ -35,19 +33,6 @@ public class BuscaLargura : MonoBehaviour
     */
     public BuscaLargura()
     {
-        //Vertice origem = grid.NodeFromWorldPoint(Origem.transform.position);
-        //Vertice destino = grid.NodeFromWorldPoint(Destino.transform.position);
-
-        //int tamanho = grid.gridSize;
-        //l = new int[tamanho + 1];
-        //nivel = new int[tamanho + 1];
-        //pai = new int[tamanho + 1]; 
-        //t = 0;
-        //fila = new Queue<int>();
-        //verticeProcurado = destino.id;
-        //verticeOrigem = origem.id;
-
-        //buscaLargura(verticeOrigem);
     }
     /**
     *
@@ -55,13 +40,15 @@ public class BuscaLargura : MonoBehaviour
     public Stack<Vertice> buscaLargura(int v)
     {
 
-        Vertice destino = grid.NodeFromWorldPoint(Destino.transform.position);
+        Vertice destino = grid.GetVerticeFromPosition(Destino.transform.position);
+
         if (v == destino.id) return null; 
         if ( Vector3.Distance(Origem.transform.position, Destino.transform.position) < 0.1 ) return null;
-        print(Vector3.Distance(Origem.transform.position, Destino.transform.position));
+        if (!destino.walkable) return null;
+
+        // print(Vector3.Distance(Origem.transform.position, Destino.transform.position));
 
         int tamanho = (int) grid.gridSize;
-        print(tamanho + 1);
         l = new int[tamanho + 1];
         nivel = new int[tamanho + 1];
         pai = new int[tamanho + 1];
@@ -73,16 +60,20 @@ public class BuscaLargura : MonoBehaviour
 
         t++;
         fila.Enqueue(verticeOrigem);
-        this.busca();
-        return getCaminho(v);
+        if(this.busca()) return getCaminho(v);
+        else
+        {
+            print("Posição invalida");
+            return null;
+        } 
     }
-    private void busca()
+    private bool busca()
     {
 
         while (fila.Count > 0)
         {
             int v = fila.Dequeue();
-            List<int> lista = grid.GetNeighbours(v);
+            List<int> lista = grid.GetVizinhos(v);
             grid.caminhoBuilding = lista;
 
 
@@ -90,7 +81,7 @@ public class BuscaLargura : MonoBehaviour
             {
                 int w = lista[0];
                 lista.RemoveAt(0);
-                print(w);
+                // print(w);
                 if (l[w] == 0)
                 {
                     t++;
@@ -100,11 +91,13 @@ public class BuscaLargura : MonoBehaviour
                     fila.Enqueue(w);
                     if (w == verticeProcurado)
                     {
-                        return;
+                        return true;
                     }
                 }
+                if (lista.Count >= grid.gridSize) return false;
             }
         }
+        return false;
     }
     /**
     a partir do vetor de pai retorna o menor caminho para o vértice de origem
@@ -113,15 +106,15 @@ public class BuscaLargura : MonoBehaviour
     {
         Stack<Vertice> pilha = new Stack<Vertice>();
         int x = pai[verticeProcurado];
-        pilha.Push(grid.getVertice(x));
+        pilha.Push(grid.GetVertice(x));
 
         while (pai[x] != v)
         {
-            pilha.Push(grid.getVertice(pai[x]));
+            pilha.Push(grid.GetVertice(pai[x]));
             x = pai[x];
         }
 
-        pilha.Push(grid.getVertice(v));
+        pilha.Push(grid.GetVertice(v));
         grid.caminho = pilha;
 
         return pilha;

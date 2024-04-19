@@ -20,9 +20,11 @@ public class MouseInput : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mouseWorldPos.z = 0f; // zero z
+            mouseWorldPos.z = 0f;
             transform.position = mouseWorldPos;
-            busca.buscaLargura(grid.NodeFromWorldPoint(Origem.position).id);
+            Vertice alvo = grid.GetVerticeFromPosition(this.transform.position);
+            if (alvo != null && alvo.walkable) busca.buscaLargura(grid.GetVerticeFromPosition(Origem.position).id);
+            else print("Posição de click invalida.");
         }
     }
 }

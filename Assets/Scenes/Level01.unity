@@ -16607,15 +16607,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terreno: {fileID: 566406091}
-  walkableMask:
+  mascaraAndavel:
     serializedVersion: 2
-    m_Bits: 64
-  unwalkableMask:
+    m_Bits: 320
+  mascaraColisivel:
     serializedVersion: 2
     m_Bits: 256
   useZAxis: 1
   gridWorldSize: {x: 158.5, y: 83.1}
-  nodeRadius: 0.25
+  raioVertice: 0.25
   player: {fileID: 1728586960}
   caminhoBuilding: 
 --- !u!4 &750046327
@@ -17066,7 +17066,7 @@ GameObject:
   - component: {fileID: 1023258651}
   - component: {fileID: 1023258650}
   - component: {fileID: 1023258649}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tilemap - Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

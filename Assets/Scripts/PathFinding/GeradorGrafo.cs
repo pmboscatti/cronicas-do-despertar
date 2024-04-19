@@ -10,16 +10,16 @@ public class GeradorGrafo : MonoBehaviour
 {
     // public Transform player;
     public Tilemap terreno;
-    public LayerMask walkableMask;
-    public LayerMask unwalkableMask;
+    public LayerMask mascaraAndavel;
+    public LayerMask mascaraColisivel;
     public bool useZAxis = false;
     public Vector2 gridWorldSize;
-    public float nodeRadius;
+    public float raioVertice;
     public Transform player;
     Vertice[,] grid;
 
 
-    float nodeDiameter;
+    float verticeDiametro;
     int gridSizeX, gridSizeY;
     int contador;
 
@@ -31,9 +31,9 @@ public class GeradorGrafo : MonoBehaviour
     void Start()
     {
         contador = 0;
-        nodeDiameter = nodeRadius * 2;
-        gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
-        gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+        verticeDiametro = raioVertice * 2;
+        gridSizeX = Mathf.RoundToInt(gridWorldSize.x / verticeDiametro);
+        gridSizeY = Mathf.RoundToInt(gridWorldSize.y / verticeDiametro);
         CreateGrid();
     }
 
@@ -48,20 +48,13 @@ public class GeradorGrafo : MonoBehaviour
         {
             for (int y = 0; y < gridSizeY; y++)
             {
-                Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + direcao2 * (y * nodeDiameter + nodeRadius);
+                Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * verticeDiametro + raioVertice) + direcao2 * (y * verticeDiametro + raioVertice);
 
-                //bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
-                //bool outside = !(Physics.CheckSphere(worldPoint, nodeRadius, walkableMask));
 
-                // bool walkable = Physics2D.IsTouching((Collider2D) this.GetComponent("Box Collider 2D"), (Collider2D) terreno.GetComponent("Box Collider 2D"));
-                // bool outside = !(Physics2D.IsTouching((BoxCollider2D) this.GetComponent("Box Collider 2D"), (BoxCollider2D) terreno.GetComponent("Box Collider 2D")));
-                //  if (walkable && outside) grid[x, y] = null;
-                Vector3Int teste = new Vector3Int((int)worldPoint.x, (int)worldPoint.y, (int)worldPoint.z);
-                bool outside = !(Physics2D.OverlapPoint((Vector2)worldPoint, walkableMask));
-                //bool outside = (terreno.GetTile(teste) == null);
-                bool walkable = (Physics2D.OverlapBox((Vector2)worldPoint, new Vector2(nodeRadius, nodeRadius), 0, unwalkableMask) == null);
+                // Vector3Int teste = new Vector3Int((int)worldPoint.x, (int)worldPoint.y, (int)worldPoint.z);
+                bool outside = !(Physics2D.OverlapPoint((Vector2)worldPoint, mascaraAndavel));
+                bool walkable = (Physics2D.OverlapBox((Vector2)worldPoint, new Vector2(raioVertice, raioVertice), 0, mascaraColisivel) == null);
 
-            
 
                 if (!outside)
                 {
@@ -71,7 +64,7 @@ public class GeradorGrafo : MonoBehaviour
         }
     }   
 
-    public Vertice NodeFromWorldPoint(Vector3 worldPosition)
+    public Vertice GetVerticeFromPosition(Vector3 worldPosition)
     {
         float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
         float d2 = (useZAxis ? worldPosition.y : worldPosition.z);
@@ -84,7 +77,7 @@ public class GeradorGrafo : MonoBehaviour
         return grid[x, y];
     }
 
-    public List<Vertice> GetNeighbours(Vertice node)
+    public List<Vertice> GetVizinhos(Vertice node)
     {
         List<Vertice> list = new List<Vertice>();
 
@@ -99,7 +92,7 @@ public class GeradorGrafo : MonoBehaviour
 
                     if(vizinhoX >= 0 && vizinhoX < gridSizeX && vizinhoY >= 0 && vizinhoY < gridSizeY)
                     {
-                        list.Add(grid[vizinhoX,vizinhoY]);
+                        if (grid[vizinhoX, vizinhoY] != null && grid[vizinhoX, vizinhoY].walkable) list.Add(grid[vizinhoX,vizinhoY]);
                     }
                 
             }
@@ -108,7 +101,7 @@ public class GeradorGrafo : MonoBehaviour
     }
 
 
-    public Vertice getVertice(int v)
+    public Vertice GetVertice(int v)
     {
         Vertice vertice = null;
 
@@ -134,9 +127,9 @@ public class GeradorGrafo : MonoBehaviour
     /// <param name="vertice"></param>
     /// <returns></returns>
     /// <exception cref="Exception">Retorna exceção se o vertice não for encontrado</exception>
-    public List<int> GetNeighbours(int vertice)
+    public List<int> GetVizinhos(int vertice)
     {
-        Vertice node = getVertice(vertice);
+        Vertice node = GetVertice(vertice);
 
         if (node == null)
         {
@@ -179,7 +172,7 @@ public class GeradorGrafo : MonoBehaviour
         {
             foreach (Vertice n in grid)
             {
-                Vertice playernode = NodeFromWorldPoint(player.position);
+                Vertice playernode = GetVerticeFromPosition(player.position);
                 if (n != null)
                 {
                   Gizmos.color = (n.walkable) ? Color.white : Color.red;
@@ -187,7 +180,7 @@ public class GeradorGrafo : MonoBehaviour
                     {
                         Gizmos.color = Color.green;
                     }
-                    foreach (Vertice v in GetNeighbours(playernode))
+                    foreach (Vertice v in GetVizinhos(playernode))
                     {
                         if (n == v) Gizmos.color = Color.yellow;
                     }
@@ -202,7 +195,7 @@ public class GeradorGrafo : MonoBehaviour
                             Gizmos.color = Color.black;
                         }
                     }
-                    Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter - .1f));
+                    Gizmos.DrawCube(n.worldPos, Vector3.one * (verticeDiametro - .1f));
                     
                 }
 
