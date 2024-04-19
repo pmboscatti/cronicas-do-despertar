@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class GeradorGrafo : MonoBehaviour
 {
+    // Com base no metodo de armazenamentos de grafo em matriz fisica apresentado por Sebastian Lague https://github.com/SebLague/Pathfinding/blob/master/Episode%2002%20-%20grid/Assets/Grid.cs
     // public Transform player;
     public Tilemap terreno;
     public LayerMask mascaraAndavel;
