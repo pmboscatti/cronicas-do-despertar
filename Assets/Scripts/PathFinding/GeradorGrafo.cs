@@ -85,8 +85,9 @@ public class GeradorGrafo : MonoBehaviour
         {
             for(int y = -1; y <= 1; y++)
             {
-                if (x == 0 && y == 0) continue;
-                
+                // if (x == 0 && y == 0) continue;
+                if (Math.Abs(x) == Math.Abs(y)) continue;
+
                     int vizinhoX = node.xPos + x;
                     int vizinhoY = node.yPos + y;
 
