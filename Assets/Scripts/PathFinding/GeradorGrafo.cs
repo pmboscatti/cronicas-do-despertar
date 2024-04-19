@@ -57,9 +57,9 @@ public class GeradorGrafo : MonoBehaviour
                 // bool outside = !(Physics2D.IsTouching((BoxCollider2D) this.GetComponent("Box Collider 2D"), (BoxCollider2D) terreno.GetComponent("Box Collider 2D")));
                 //  if (walkable && outside) grid[x, y] = null;
                 Vector3Int teste = new Vector3Int((int)worldPoint.x, (int)worldPoint.y, (int)worldPoint.z);
-                bool outside = !(Physics2D.OverlapPoint((Vector2Int)teste, walkableMask));
+                bool outside = !(Physics2D.OverlapPoint((Vector2)worldPoint, walkableMask));
                 //bool outside = (terreno.GetTile(teste) == null);
-                bool walkable = (Physics2D.OverlapBox((Vector2Int)teste, new Vector2(nodeRadius, nodeRadius), 0, unwalkableMask) == null);
+                bool walkable = (Physics2D.OverlapBox((Vector2)worldPoint, new Vector2(nodeRadius, nodeRadius), 0, unwalkableMask) == null);
 
             
 
