@@ -24,16 +24,16 @@ public class BuscaLargura : MonoBehaviour
 
     private void Update()
     {
-        buscaLargura(grid.NodeFromWorldPoint(Origem.transform.position).id);
-        print(grid.NodeFromWorldPoint(Origem.transform.position));
-        print(grid.NodeFromWorldPoint(Origem.transform.position).id);
+        //buscaLargura(grid.NodeFromWorldPoint(Origem.transform.position).id);
+        //print(grid.NodeFromWorldPoint(Origem.transform.position));
+        //print(grid.NodeFromWorldPoint(Origem.transform.position).id);
     }
 
 
     /**
     * Efetua uma busca em largura a partir de um grid, a partir do @param p
     */
-    BuscaLargura()
+    public BuscaLargura()
     {
         //Vertice origem = grid.NodeFromWorldPoint(Origem.transform.position);
         //Vertice destino = grid.NodeFromWorldPoint(Destino.transform.position);

@@ -20,7 +20,7 @@ public class GeradorGrafo : MonoBehaviour
 
 
     float nodeDiameter;
-    float gridSizeX, gridSizeY;
+    int gridSizeX, gridSizeY;
     int contador;
 
     public float gridSize
@@ -39,7 +39,7 @@ public class GeradorGrafo : MonoBehaviour
 
     void CreateGrid()
     {
-        grid = new Vertice[(int) gridSizeX, (int) gridSizeY];
+        grid = new Vertice[gridSizeX, gridSizeY];
         Vector3 direcao2 = (useZAxis ? Vector3.up : Vector3.forward);
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - direcao2 * gridWorldSize.y / 2;
         
