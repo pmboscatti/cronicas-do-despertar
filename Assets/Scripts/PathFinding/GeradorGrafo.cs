@@ -57,14 +57,15 @@ public class GeradorGrafo : MonoBehaviour
                 // bool outside = !(Physics2D.IsTouching((BoxCollider2D) this.GetComponent("Box Collider 2D"), (BoxCollider2D) terreno.GetComponent("Box Collider 2D")));
                 //  if (walkable && outside) grid[x, y] = null;
                 Vector3Int teste = new Vector3Int((int)worldPoint.x, (int)worldPoint.y, (int)worldPoint.z);
-                bool outside = (terreno.GetTile(teste) == null);
+                bool outside = !(Physics2D.OverlapPoint((Vector2Int)teste, walkableMask));
+                //bool outside = (terreno.GetTile(teste) == null);
+                bool walkable = (Physics2D.OverlapBox((Vector2Int)teste, new Vector2(nodeRadius, nodeRadius), 0, unwalkableMask) == null);
 
-
+            
 
                 if (!outside)
                 {
-                    grid[x, y] = new Vertice(contador++, true, worldPoint, x, y);
-                    print(grid[x, y].id);
+                    grid[x, y] = new Vertice(contador++, walkable, worldPoint, x, y);
                 }
             }
         }
@@ -149,14 +150,15 @@ public class GeradorGrafo : MonoBehaviour
         {
             for (int y = -1; y <= 1; y++)
             {
-                if (x == 0 && y == 0) continue;
+                //if (x == 0 && y == 0) continue;
+                if (Math.Abs(x) == Math.Abs(y)) continue;
 
                 int vizinhoX = node.xPos + x;
                 int vizinhoY = node.yPos + y;
 
                 if (vizinhoX >= 0 && vizinhoX < gridSizeX && vizinhoY >= 0 && vizinhoY < gridSizeY)
                 {
-                    if(grid[vizinhoX, vizinhoY] != null) list.Add( grid[vizinhoX,vizinhoY].id );
+                    if(grid[vizinhoX, vizinhoY] != null && grid[vizinhoX, vizinhoY].walkable) list.Add( grid[vizinhoX,vizinhoY].id );
                 }
 
             }
@@ -166,6 +168,7 @@ public class GeradorGrafo : MonoBehaviour
 
 
     public Stack<Vertice> caminho;
+    public List<int> caminhoBuilding;
     void OnDrawGizmos()
     {
         if(useZAxis) Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
@@ -190,12 +193,17 @@ public class GeradorGrafo : MonoBehaviour
                     }
                     if (caminho != null)
                     {
+                        //if (caminhoBuilding.Contains(n.id))
+                        //{
+                        //    Gizmos.color = Color.cyan;
+                        //}
                         if (caminho.Contains(n))
                         {
                             Gizmos.color = Color.black;
                         }
                     }
                     Gizmos.DrawCube(n.worldPos, Vector3.one * (nodeDiameter - .1f));
+                    
                 }
 
             }

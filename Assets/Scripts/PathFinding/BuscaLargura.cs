@@ -56,6 +56,9 @@ public class BuscaLargura : MonoBehaviour
     {
 
         Vertice destino = grid.NodeFromWorldPoint(Destino.transform.position);
+        if (v == destino.id) return null; 
+        if ( Vector3.Distance(Origem.transform.position, Destino.transform.position) < 0.1 ) return null;
+        print(Vector3.Distance(Origem.transform.position, Destino.transform.position));
 
         int tamanho = (int) grid.gridSize;
         print(tamanho + 1);
@@ -80,12 +83,9 @@ public class BuscaLargura : MonoBehaviour
         {
             int v = fila.Dequeue();
             List<int> lista = grid.GetNeighbours(v);
-            print("Começo");
-            foreach(int n in lista)
-            {
-                print(n);
-            }
-            print("Fim");
+            grid.caminhoBuilding = lista;
+
+
             while (lista.Count > 0)
             {
                 int w = lista[0];
