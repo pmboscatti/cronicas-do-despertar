@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5186769943491981842}
   - component: {fileID: 6478986779405823938}
   - component: {fileID: 2838375857095403112}
+  - component: {fileID: -8465571299297953956}
   m_Layer: 0
   m_Name: Player_BlueWarrior
   m_TagString: Player
@@ -82,12 +83,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412262793579144134}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce0038be263d74d9b95eb7a5862c9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 1
+--- !u!114 &-8465571299297953956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412262793579144134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43ca7949707d4d845b9acf8e90b18724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 1
+  arrivalThreshold: 0.1
 --- !u!1 &4200077769741346067
 GameObject:
   m_ObjectHideFlags: 0
