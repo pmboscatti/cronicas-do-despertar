@@ -16751,7 +16751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5008a3b364e4a741a59257d0edf7894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Origem: {fileID: 1728586961}
+  Origem: {fileID: 0}
   Destino: {fileID: 2061104743}
 --- !u!114 &750046326
 MonoBehaviour:
@@ -27857,3 +27857,5 @@ SceneRoots:
   - {fileID: 317450493}
   - {fileID: 1732612279}
   - {fileID: 1500124394}
+  - {fileID: 750046327}
+  - {fileID: 2061104745}
