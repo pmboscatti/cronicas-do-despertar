@@ -169,9 +169,5 @@ public class typewriterUI_v2 : MonoBehaviour
         {
             tmpProText.text = tmpProText.text.Substring(0, tmpProText.text.Length - leadingChar.Length);
         }
-
-        yield return new WaitForSeconds(3);
-
-        tmpProText.text = "";
     }
 }
