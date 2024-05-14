@@ -1,9 +1,8 @@
 class Inimigo:Personagem{
-    //private bool aliado;
-    private int agressividade;
-    private int curarAliado;
-    private int autoProtecao;
-    private int protegerAliado;
+    public int agressividade;
+    public int curarAliado;
+    public int autoProtecao;
+    public int protegerAliado;
    
 
 }

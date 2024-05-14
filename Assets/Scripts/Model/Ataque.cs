@@ -1,15 +1,23 @@
 class Ataque: Acao{
-   public int calculoDeDano(Personagem atacante, Personagem vitima ){
+    private Personagem atacante;
+    private Personagem alvo;
+    private int DanoBase;
+
+  public Ataque(Personagem atacante, Personagem alvo){
+    this.atacante = atacante;
+    this.alvo = alvo;
+  }
+   public int calculoDeDano(){
        
-        return (int)(atacante.atk*RNJesus.getRange()*RNJesus.crit()/vitima.def);//tem que inserir um método de pegar o dano do personagem
+        return (int)(atacante.atk*RNJesus.getRange()*RNJesus.crit()*DanoBase/alvo.def);//tem que inserir um método de pegar o dano do personagem
     
     }
-    public int realizaAtaque(Personagem atacante, Personagem vitima)
+    public int realizaAtaque()
     {
         int dano=0;
         if(erraAcao()==false)
         {
-            dano=calculoDeDano(atacante,vitima );
+            dano=calculoDeDano();
         }
         return dano;
     }  

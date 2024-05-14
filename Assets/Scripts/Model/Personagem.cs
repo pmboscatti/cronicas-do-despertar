@@ -14,7 +14,22 @@ class Personagem
      /*
         lógica de buff e debuff, baseado em modifier
     */
-    
+    public Ataque [] GetVetorAtaques()
+    {
+       return this.ataques; 
+    }
+    public Magia [] GetVetorMagias()
+    {
+       return this.magias; 
+    }
+    public Status [] GetVetorStatus()
+    {
+       return this.status; 
+    }
+    public Cura [] GetVetorCuras()
+    {
+       return this.curas; 
+    }
 }
 
 
