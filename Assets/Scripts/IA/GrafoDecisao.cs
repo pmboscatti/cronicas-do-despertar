@@ -66,7 +66,7 @@ class GrafoDecisao{
         
     }
     public Personagem[] listaAliados(){
-
+        
     }
     
     private int estouComVidaBaixa()
