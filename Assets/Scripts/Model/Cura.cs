@@ -1,5 +1,5 @@
 
-class Cura: Acao{1
+class Cura: Acao{
     private Personagem ator;
     private Personagem alvo;
     private int curaBase;

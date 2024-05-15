@@ -1,17 +1,19 @@
-public VerticeIA{
-    public List<Vertice> vizinhos;
+using System.Collections.Generic;
+
+public class VerticeIA{
+    public List<VerticeIA> vizinhos;
     public List<int> peso;
-    static pesoPadrao=1000;
+    static int pesoPadrao=1000;
     public Acao acao; 
-    public Vertice()
+    public VerticeIA()
     {
-        vizinhos = new List<Vertice>();
+        vizinhos = new List<VerticeIA>();
         peso = new List<int>(); 
         
     }
-    public Vertice(Acao acao)
+    public VerticeIA(Acao acao)
     {
-        vizinhos = new List<Vertice>();
+        vizinhos = new List<VerticeIA>();
         peso = new List<int>();
         this.acao=acao;        
     }   

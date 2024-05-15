@@ -1,4 +1,4 @@
-class Acao{
+public class Acao{
     public string nome;
     public int pp;//powerpoint
     public int precisao;

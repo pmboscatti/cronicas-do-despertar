@@ -25,9 +25,9 @@ class GrafoDecisao{
             foreach (Ataque ataque in personagem.GetVetorAtaques())
             {
                 VerticeIA vizinho=new VerticeIA(new Ataque(personagem, alvo));
-                raiz.vizinhos.add(vizinho);
-                raiz.peso.add(1);
-                DecisaoAtaque(vizinho);
+                raiz.vizinhos.Add(vizinho);
+                raiz.peso.Add(1);
+                // DecisaoAtaque(vizinho);
             }
         }
     }
@@ -40,10 +40,10 @@ class GrafoDecisao{
         {
             foreach (Magia magia in personagem.GetVetorMagias())
             {
-                VerticeIA vizinho=new VerticeIA(new Magia(personagem, alvo));
-                raiz.vizinhos.add(vizinho);
-                raiz.peso.add(1);
-                DecisaoMagia(vizinho);
+                // VerticeIA vizinho=new VerticeIA(new Magia(personagem, alvo));
+                // raiz.vizinhos.Add(vizinho);
+                raiz.peso.Add(1);
+                // DecisaoMagia(vizinho);
             }
         }
     }
@@ -54,24 +54,27 @@ class GrafoDecisao{
         {
             foreach (Cura cura in personagem.GetVetorCuras())
             {
-                VerticeIA vizinho=new VerticeIA(new Cura(personagem, alvo));
-                raiz.vizinhos.add(vizinho);
-                raiz.peso.add(1);
-                DecisaoCura(vizinho);
+                // VerticeIA vizinho=new VerticeIA(new Cura(personagem, alvo));
+                // raiz.vizinhos.Add(vizinho);
+                raiz.peso.Add(1);
+                // DecisaoCura(vizinho);
             }
         }
 
     }
+    // TODO: Implement
     public Personagem[] listaAlvos(){
-        
+        return null;
     }
+    // TODO: Implement
     public Personagem[] listaAliados(){
-        
+        return null;
     }
-    
+
+    // TODO: Implement
     private int estouComVidaBaixa()
     {
-
+        return -1;
     }
     // private int corroRiscoDeNaoSobreviver()
     // {
