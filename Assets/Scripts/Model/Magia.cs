@@ -1,19 +1,33 @@
-class Magia:Acao{
-    private  int dano;
-    private  bool tipoDano;//true físico, false especial
-   private  int calculoDeDano(Personagem atacante, Personagem vitima ){
-        return (int)(dano*atacante.spatk/vitima.spdef*RNJesus.getRange()*RNJesus.crit());
+using System;
 
-    
-    }
-    public  int realizaAtaque(Personagem atacante, Personagem vitima)
+public class Magia : Acao
+{
+    public Personagem atacante;
+    public Personagem alvo;
+    public int dano;
+
+    public Magia(String nome, int pp,int precisao,int dano):base(nome,pp,precisao)
     {
-        int dano=0;
-        if(erraAcao()==false)
+        this.dano = dano;
+    }
+    public void DeterminaAtores(Personagem atacante, Personagem alvo){
+    this.atacante=  atacante;
+    this.alvo= alvo;
+    }
+    public int CalculoDeDano()
+    {
+        return (int)(dano * atacante.spatk / alvo.spdef * RNJesus.getRange() * RNJesus.crit());
+
+
+    }
+    public int RealizaAtaque()
+    {
+        int dano = 0;
+        if (ErraAcao() == false)
         {
-            dano=calculoDeDano(atacante, vitima );
+            dano = CalculoDeDano();
         }
         return dano;
-    }  
-    
+    }
+
 }

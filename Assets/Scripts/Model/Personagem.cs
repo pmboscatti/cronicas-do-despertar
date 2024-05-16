@@ -1,4 +1,6 @@
-class Personagem
+using System;
+
+public class Personagem
 {
     public string nome;
     public int hp;
@@ -9,11 +11,25 @@ class Personagem
     public int velocidade;
     public Ataque[] ataques;
     public Magia[] magias;
-    public Status[] status;
-    public Cura[] curas;
-     /*
-        lógica de buff e debuff, baseado em modifier
-    */
+   //  public Status[] status;
+   //  public Cura[] curas;
+
+    public Personagem(string nome, int hp, int def, int atk, int spatk, int spdef, int velocidade)
+    {
+        this.nome = nome;
+        this.hp = hp;
+        this.def = def;
+        this.atk = atk;
+        this.spatk = spatk;
+        this.spdef = spdef;
+        this.velocidade = velocidade;
+    }
+
+    /*
+  lógica de buff e debuff, baseado em modifier
+*/
+
+
     public Ataque [] GetVetorAtaques()
     {
        return this.ataques; 
@@ -22,14 +38,14 @@ class Personagem
     {
        return this.magias; 
     }
-    public Status [] GetVetorStatus()
-    {
-       return this.status; 
-    }
-    public Cura [] GetVetorCuras()
-    {
-       return this.curas; 
-    }
+   //  public Status [] GetVetorStatus()
+   //  {
+   //     return this.status; 
+   //  }
+   //  public Cura [] GetVetorCuras()
+   //  {
+   //     return this.curas; 
+   //  }
 }
 
 

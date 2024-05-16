@@ -1,23 +1,27 @@
-class Ataque: Acao{
-    private Personagem atacante;
-    private Personagem alvo;
-    private int DanoBase;
+public class Ataque: Acao{
+    public Personagem atacante;
+    public Personagem alvo;
+    public int dano;
 
-  public Ataque(Personagem atacante, Personagem alvo){
-    this.atacante = atacante;
-    this.alvo = alvo;
-  }
-   public int calculoDeDano(){
+    public Ataque(string nome, int pp,int precisao,int dano):base(nome,pp,precisao)
+    {
+        this.dano = dano;
+    }
+   public override int CalculoDeDano(){
        
-        return (int)(atacante.atk*RNJesus.getRange()*RNJesus.crit()*DanoBase/alvo.def);//tem que inserir um método de pegar o dano do personagem
+        return (int)(atacante.atk*RNJesus.getRange()*RNJesus.crit()*dano/alvo.def);//tem que inserir um método de pegar o dano do personagem
     
     }
-    public int realizaAtaque()
+    public void DeterminaAtores(Personagem atacante, Personagem alvo){
+    this.atacante=  atacante;
+    this.alvo= alvo;
+    }
+    public int RealizaAtaque()
     {
         int dano=0;
-        if(erraAcao()==false)
+        if(ErraAcao()==false)
         {
-            dano=calculoDeDano();
+            dano=CalculoDeDano();
         }
         return dano;
     }  
