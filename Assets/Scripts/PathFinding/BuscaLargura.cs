@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -16,9 +18,11 @@ public class BuscaLargura : MonoBehaviour
     int verticeOrigem;
 
     GeradorGrafo grid;
+    ControladorPathFinders controladorPathFinder;
 
     void Awake()
     {
+        controladorPathFinder = GetComponent<ControladorPathFinders>(); 
         grid = GetComponent<GeradorGrafo>();
     }
 
@@ -27,24 +31,25 @@ public class BuscaLargura : MonoBehaviour
         // buscaLargura(grid.GetVerticeFromPosition(Origem.transform.position).id);
     }
 
-
-    /**
-    * Efetua uma busca em largura a partir de um grid, a partir do @param p
-    */
-    public BuscaLargura()
+    public void Busca(Vector3 posInicial)
     {
+        StartCoroutine(buscaLargura(grid.GetVerticeFromPosition(posInicial).id));
     }
+
     /**
     *
     */
-    public Stack<Vertice> buscaLargura(int v)
+    IEnumerator buscaLargura(int v)
     {
 
         Vertice destino = grid.GetVerticeFromPosition(Destino.transform.position);
 
-        if (v == destino.id) return null; 
-        if ( Vector3.Distance(Origem.transform.position, Destino.transform.position) < 0.1 ) return null;
-        if (!destino.walkable) return null;
+        if (v == destino.id) yield break; 
+        if ( Vector3.Distance(Origem.transform.position, Destino.transform.position) < 0.1 ) yield break;
+        if (!destino.walkable) yield break;
+
+        bool sucesso = false;
+        Vector3[] pontos = new Vector3[0];
 
         // print(Vector3.Distance(Origem.transform.position, Destino.transform.position));
 
@@ -60,13 +65,22 @@ public class BuscaLargura : MonoBehaviour
 
         t++;
         fila.Enqueue(verticeOrigem);
-        if(this.busca()) return getCaminho(v);
+
+
+        yield return null;
+        if(busca())
+        {
+            pontos = CaminhoSimplificado(getCaminho(v));
+            Array.Reverse(pontos);
+            sucesso = true;
+        }
         else
         {
             print("Posição invalida");
-            return null;
-        } 
-    }
+        }
+
+        controladorPathFinder.FimProcessamentoCaminho(pontos, sucesso);
+    }   
     private bool busca()
     {
 
@@ -102,21 +116,38 @@ public class BuscaLargura : MonoBehaviour
     /**
     a partir do vetor de pai retorna o menor caminho para o vértice de origem
     */
-    private Stack<Vertice> getCaminho(int v)
+    private List<Vertice> getCaminho(int v)
     {
-        Stack<Vertice> pilha = new Stack<Vertice>();
+        List<Vertice> caminho = new List<Vertice>();
         int x = pai[verticeProcurado];
-        pilha.Push(grid.GetVertice(x));
+        caminho.Add(grid.GetVertice(x));
 
         while (pai[x] != v)
         {
-            pilha.Push(grid.GetVertice(pai[x]));
+            caminho.Add(grid.GetVertice(pai[x]));
             x = pai[x];
         }
 
-        pilha.Push(grid.GetVertice(v));
-        grid.caminho = pilha;
-
-        return pilha;
+        caminho.Add(grid.GetVertice(v));
+        grid.caminho = caminho;
+        return caminho;
     }
+
+    Vector3[] CaminhoSimplificado(List<Vertice> caminho)
+    {
+        List<Vector3> pontos = new List<Vector3>();
+        Vector2 direcaoUltima = Vector2.zero;
+
+        for(int i = 1; i < caminho.Count; i++)
+        {
+            Vector2 direcaoAtual = new Vector2(caminho[i - 1].xPos - caminho[i].xPos, caminho[i - 1].yPos - caminho[i].yPos);
+            if(direcaoAtual != direcaoUltima)
+            {
+                pontos.Add(caminho[i].worldPos);
+            }
+            direcaoUltima = direcaoAtual;
+        }
+
+        return pontos.ToArray();
+    } 
 }

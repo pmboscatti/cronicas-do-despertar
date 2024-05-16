@@ -29,7 +29,7 @@ public class PointAndClickMovement : MonoBehaviour
     {
         Vector2 currentPos = rbody.position;
         // Calcula o vetor de movimento em direção à posição alvo
-        Vector2 movement = (targetPosition - rbody.position).normalized * movementSpeed;
+        Vector2 movement = (targetPosition - rbody.position).normalized * movementSpeed ;
 
         // Verifica se o personagem está próximo o suficiente da posição alvo
         if (Vector2.Distance(currentPos, targetPosition) > arrivalThreshold)

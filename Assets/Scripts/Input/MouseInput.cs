@@ -6,8 +6,7 @@ public class MouseInput : MonoBehaviour
 {
 
     public GeradorGrafo grid;
-    public Transform Origem;
-    public BuscaLargura busca;
+    public Unidade unidade;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +22,10 @@ public class MouseInput : MonoBehaviour
             mouseWorldPos.z = 0f;
             transform.position = mouseWorldPos;
             Vertice alvo = grid.GetVerticeFromPosition(this.transform.position);
-            if (alvo != null && alvo.walkable) busca.buscaLargura(grid.GetVerticeFromPosition(Origem.position).id);
-            else print("Posição de click invalida.");
+            if (alvo != null && alvo.walkable)
+                ControladorPathFinders.IniciarCaminho(unidade.transform.position, unidade.alvo.position, unidade.CaminhoEncontrado);
+            else
+                print("Posição de click invalida.");
         }
     }
 }
