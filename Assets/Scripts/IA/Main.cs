@@ -1,7 +1,9 @@
 public class Main
 {
-    public static void Teste(string[] args){
+    public static void Teste(string[] args)
+    {
         Personagem cleitinho=new("Cleitinho", 200, 100,100,100,100,100);
+        Personagem felisberto=new("Felisberto", 200, 160,120,110,130,101);
         Inimigo fulano=new ("Fulano",200, 100,100,100,100,100,5,8);
         Inimigo beltrano=new("Beltrano", 200, 115,100,100,100,100,8,5);
         Ataque[] ataques=new Ataque[2];
@@ -16,8 +18,9 @@ public class Main
         beltrano.ataques=ataques;
         cleitinho.ataques=ataques;
         cleitinho.magias=magias;
-        // GrafoDecisao grafo=new GrafoDecisao()
-
-
+        felisberto.ataques=ataques;
+        felisberto.magias=magias;
+        GrafoDecisao grafo=new (fulano);
+        grafo=new (beltrano);
     }
 }

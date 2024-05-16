@@ -9,9 +9,11 @@ public class Acao{
         this.pp = pp;
         this.precisao = precisao;
     }
-    public virtual int CalculoDeDano()
-    {
+    public virtual int CalculoDeDano(){
         return 0;
+    }
+    public virtual Personagem GetAlvo(){
+        return null;
     }
     public bool ErraAcao()
     {

@@ -17,9 +17,6 @@ public class VerticeIA{
         peso = new List<int>();
         this.acao=acao;        
     } 
-    public VerticeIA(Ataque ataque, Inimigo personagem, Personagem alvo)    {
-        Acao( ataque, personagem, alvo);
-    }
     public VerticeIA(VerticeIA vertice)
     {
        vizinhos = new List<VerticeIA>();

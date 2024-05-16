@@ -14,7 +14,16 @@ public class Magia : Acao
     this.atacante=  atacante;
     this.alvo= alvo;
     }
-    public int CalculoDeDano()
+    public Magia(Magia magia,Personagem atacante, Personagem alvo ):base(magia.nome, magia.pp,magia.precisao)
+    {
+        this.atacante = atacante;
+        this.alvo=alvo;
+    }
+    public override Personagem GetAlvo()
+    {
+        return alvo;
+    }
+    public override int CalculoDeDano()
     {
         return (int)(dano * atacante.spatk / alvo.spdef * RNJesus.getRange() * RNJesus.crit());
 
