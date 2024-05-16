@@ -20,7 +20,7 @@ public class MinHeap<T> where T : ItemHeap<T>
         quantidadeAtual++;
     }
 
-    public T RemovePrimeiro()
+    public T RemoveFirst()
     {
         T primeiroItem = itens[0];
         quantidadeAtual--;
