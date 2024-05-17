@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Threading;
 
 public class typewriterUI_v2 : MonoBehaviour
 {
@@ -23,6 +22,9 @@ public class typewriterUI_v2 : MonoBehaviour
     [SerializeField] private bool startOnCollision = false;
     enum options { clear, complete }
     [SerializeField] options collisionExitOptions;
+
+    [Header("GameObject to Disable")]
+    [SerializeField] private GameObject textGameObject;
 
     // Use this for initialization
     void Awake()
@@ -81,7 +83,6 @@ public class typewriterUI_v2 : MonoBehaviour
                 tmpProText.text = writer;
             }
         }
-        // clear
         else
         {
             if (text != null)
@@ -98,7 +99,6 @@ public class typewriterUI_v2 : MonoBehaviour
         StopAllCoroutines();
     }
 
-
     private void StartTypewriter()
     {
         StopAllCoroutines();
@@ -107,14 +107,14 @@ public class typewriterUI_v2 : MonoBehaviour
         {
             text.text = "";
 
-            StartCoroutine("TypeWriterText");
+            StartCoroutine(TypeWriterText());
         }
 
         if (tmpProText != null)
         {
             tmpProText.text = "";
 
-            StartCoroutine("TypeWriterTMP");
+            StartCoroutine(TypeWriterTMP());
         }
     }
 
@@ -146,6 +146,13 @@ public class typewriterUI_v2 : MonoBehaviour
         }
 
         yield return null;
+
+        yield return new WaitForSeconds(3);
+
+        if (textGameObject != null)
+        {
+            textGameObject.SetActive(false);
+        }
     }
 
     IEnumerator TypeWriterTMP()
@@ -168,6 +175,16 @@ public class typewriterUI_v2 : MonoBehaviour
         if (leadingChar != "")
         {
             tmpProText.text = tmpProText.text.Substring(0, tmpProText.text.Length - leadingChar.Length);
+        }
+
+        yield return null;
+
+        // Esperar três segundos pro texto sumir
+        yield return new WaitForSeconds(3);
+
+        if (textGameObject != null)
+        {
+            textGameObject.SetActive(false);
         }
     }
 }
