@@ -1,17 +1,21 @@
+using System;
 using System.Collections.Generic;
-
 class GrafoDecisao{
     public Inimigo personagem;
-    public VerticeIA raiz;
-    public VerticeIA fim;
-
+    public List<VerticeIA> array;// primeira posição[0] é o vértice de fim, s
+    public int V;//número de vértices
     public GrafoDecisao(Inimigo personagem){
         this.personagem=personagem;
-        raiz=new VerticeIA();
-        fim=new VerticeIA();
+        VerticeIA raiz=new VerticeIA();
+        array.Add(new VerticeIA());
+        AdicionaVertice(raiz);//raíz índice um, fim índice zero
+        raiz.distanciaRaiz=0;
     }
     
-    
+    public void AdicionaVertice(VerticeIA vertice){
+        array.Add(vertice);
+        V++;
+    }
     public void CriarGrafo()
     { 
         IteraPorTodosOsAtaques();
@@ -27,33 +31,37 @@ class GrafoDecisao{
             foreach (Ataque ataque in personagem.GetVetorAtaques())
             {
                 VerticeIA vizinho=new VerticeIA(new Ataque(ataque, personagem, alvo));
-                raiz.vizinhos.Add(vizinho);
-                raiz.peso.Add(100/personagem.aptidaoAtaqueFisico);
+                AdicionaVertice(vizinho);
+                array[1].vizinhos.Add(V);
+                array[1].distancia.Add(100/personagem.aptidaoAtaqueFisico);
                 DecisaoAtaque(vizinho);
             }
         }
     }
     private void DecisaoAtaque(VerticeIA atual){
-        //cria um vértice do grafo com o peso do dano causado ao inimigo
+        //cria um vértice do grafo com o distancia do dano causado ao inimigo
         VerticeIA novo=new(atual);
-        atual.vizinhos.Add(novo);
+        AdicionaVertice(novo);
+        atual.vizinhos.Add(V);
         int danoCausado=atual.acao.CalculoDeDano();
-        atual.peso.Add(VerticeIA.pesoPadrao/danoCausado);
+        atual.distancia.Add(VerticeIA.distanciaPadrao/danoCausado);
         //cria um vértice que dá prioridade ao ataque que mata o inimigo 
         atual=novo;
         novo=new(atual);
-        atual.vizinhos.Add(novo);
-        atual.peso.Add(verificaSeAlvoMorre(danoCausado, atual.acao.GetAlvo()));
+        AdicionaVertice(novo);
+        atual.vizinhos.Add(V);
+        atual.distancia.Add(VerificaSeAlvoMorre(danoCausado, atual.acao.GetAlvo()));
         //cria um vértice que dá prioridade ao ataque mais preciso
         atual=novo;
         novo=new(atual);
-        atual.vizinhos.Add(novo);
-        atual.peso.Add(VerticeIA.pesoPadrao/(atual.acao.precisao*4));
+        AdicionaVertice(novo);
+        atual.vizinhos.Add(V);
+        atual.distancia.Add(VerticeIA.distanciaPadrao/(atual.acao.precisao*4));
         //conectar com o fim do turno.
-        novo.vizinhos.Add(fim);
+        novo.vizinhos.Add(0);
 
     }
-    private int verificaSeAlvoMorre(int dano, Personagem alvo){
+    private int VerificaSeAlvoMorre(int dano, Personagem alvo){
         int resultado=1000;
         if(alvo.hp<=dano)
         {
@@ -67,10 +75,10 @@ class GrafoDecisao{
         {
             foreach (Magia magia in personagem.GetVetorMagias())
             {
-                VerticeIA vizinho=new VerticeIA(new Magia(magia, personagem, alvo));
-                raiz.vizinhos.Add(vizinho);
-                raiz.peso.Add(100/personagem.aptidaoMagia);
-                DecisaoAtaque(vizinho);
+                AdicionaVertice(new VerticeIA(new Magia(magia, personagem, alvo)));
+                array[1].vizinhos.Add(V);
+                array[1].distancia.Add(100/personagem.aptidaoMagia);
+                DecisaoAtaque(array[V]);
             }
         }
     }
@@ -83,7 +91,7 @@ class GrafoDecisao{
     //         {
     //             VerticeIA vizinho=new VerticeIA(new Cura(personagem, alvo));
     //             raiz.vizinhos.Add(vizinho);
-    //             raiz.peso.Add(1);
+    //             raiz.distancia.Add(1);
     //             DecisaoCura(vizinho);
     //         }
     //     }
