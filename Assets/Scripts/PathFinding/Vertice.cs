@@ -12,6 +12,12 @@ public class Vertice
     public int yPos;
 
     public int id;
+
+    // Campos para A*
+    public float g;
+    public float h;
+    public Vertice pai; // Vértice pai no caminho
+    public List<Vertice> vizinhos; // Vizinhos deste ponto
     
     public Vertice(int id, bool _walkable, Vector3 _worldPos, int _xPos, int _yPos)
     {
@@ -20,6 +26,12 @@ public class Vertice
         yPos = _yPos;
         walkable = _walkable;
         worldPos = _worldPos;
+
+        // Inicializa campos para A*
+        g = Mathf.Infinity;
+        h = 0;
+        pai = null;
+        vizinhos = new List<Vertice>();
     }
 
 
