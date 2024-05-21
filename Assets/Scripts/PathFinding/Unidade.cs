@@ -10,9 +10,10 @@ public class Unidade : MonoBehaviour
     public int velocidade = 10;
     Vector3[] caminho;
     int indiceAtual;
+    IsometricCharacterRenderer isoRenderer;
     void Start()
     {
-        // ControladorPathFinders.IniciarCaminho(transform.position, alvo.position, CaminhoEncontrado); 
+        isoRenderer = GetComponentInChildren<IsometricCharacterRenderer>();
     }
 
     public void CaminhoEncontrado(Vector3[] caminho, bool sucesso)
@@ -31,20 +32,23 @@ public class Unidade : MonoBehaviour
         Vector3 pontoAtual = caminho[0];
         while(true)
         {
+            if(indiceAtual < caminho.Length - 1) isoRenderer.SetDirection(caminho[indiceAtual + 1]);
             if(transform.position == pontoAtual)
             {
                 indiceAtual++;
                 if(indiceAtual >= caminho.Length)
                 {
+                    isoRenderer.SetDirection(Vector2.zero);
                     yield break;
                 }
                 pontoAtual = caminho[indiceAtual];
 
             }
-
+            isoRenderer.SetDirection(caminho[indiceAtual]);
             transform.position = Vector3.MoveTowards(transform.position, pontoAtual, velocidade * Time.deltaTime);
             yield return null;
         }
+;
     }
 
     public void OnDrawGizmos()
@@ -54,7 +58,7 @@ public class Unidade : MonoBehaviour
             for(int i = indiceAtual; i < caminho.Length; i++)
             {
                 Gizmos.color = Color.black;
-                Gizmos.DrawCube(caminho[i], new Vector3(-0.5f,-0.5f,-0.5f));
+                Gizmos.DrawCube(caminho[i], new Vector3(-0.2f,-0.2f,-0.2f));
                 if(i == indiceAtual)
                 {
                     Gizmos.DrawLine(transform.position, caminho[i]);
