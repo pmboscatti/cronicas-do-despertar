@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 273403513016580401}
   - component: {fileID: 418057006279254218}
   - component: {fileID: 1828179871578195096}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock_Grey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 945863286602706396}
   - component: {fileID: 1225281483711216243}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

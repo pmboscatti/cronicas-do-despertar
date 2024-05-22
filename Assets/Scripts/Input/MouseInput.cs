@@ -8,10 +8,7 @@ public class MouseInput : MonoBehaviour
 {
 
     public GeradorGrafo grid;
-    public Transform Origem;
-    public Transform Destino;
-    public BuscaAStar busca;
-
+    public Unidade unidade;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,21 +30,11 @@ public class MouseInput : MonoBehaviour
 
             // Define a posição do objeto do mouse para auxiliar na visualização (opcional)
             transform.position = mouseWorldPos;
-
-            // Obtém os vértices de origem e destino com base nas posições definidas
-            Vertice origem = grid.GetVerticeFromPosition(Origem.position);
-            Vertice destino = grid.GetVerticeFromPosition(Destino.position);
-
-            if (origem != null && destino != null)
-            {
-                // Realiza a busca A* e obtém o caminho
-                List<Vertice> caminho = busca.EncontrarCaminho(origem, destino);
-                // Use o caminho retornado conforme necessário
-            }
+            Vertice alvo = grid.GetVerticeFromPosition(this.transform.position);
+            if (alvo != null && alvo.walkable)
+                ControladorPathFinders.IniciarCaminho(unidade.transform.position, unidade.alvo.position, unidade.CaminhoEncontrado);
             else
-            {
-                Debug.Log("Posição de clique inválida.");
-            }
+                print("Posi��o de click invalida.");
         }
     }
 }

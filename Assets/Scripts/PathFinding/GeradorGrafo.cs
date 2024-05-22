@@ -23,12 +23,12 @@ public class GeradorGrafo : MonoBehaviour
     int gridSizeX, gridSizeY;
     int contador;
 
-    public float gridSize
+    public int gridSize
     {
         get { return (gridSizeX * gridSizeY); }
     }
 
-    void Start()
+    void Awake()
     {
         contador = 0;
         verticeDiametro = raioVertice * 2;
@@ -88,7 +88,8 @@ public class GeradorGrafo : MonoBehaviour
         {
             for(int y = -1; y <= 1; y++)
             {
-                if (x == 0 && y == 0) continue; // Não precisamos considerar o próprio vértice
+                if (x == 0 && y == 0) continue;
+                // if (Math.Abs(x) == Math.Abs(y)) continue;
 
                 int vizinhoX = node.xPos + x;
                 int vizinhoY = node.yPos + y;
@@ -185,7 +186,7 @@ public class GeradorGrafo : MonoBehaviour
     }
 
 
-    public Stack<Vertice> caminho;
+    public List<Vertice> caminho;
     public List<int> caminhoBuilding;
     void OnDrawGizmos()
     {
@@ -209,17 +210,6 @@ public class GeradorGrafo : MonoBehaviour
                     {
                         if (n == v) Gizmos.color = Color.yellow;
                     }
-                    if (caminho != null)
-                    {
-                        //if (caminhoBuilding.Contains(n.id))
-                        //{
-                        //    Gizmos.color = Color.cyan;
-                        //}
-                        if (caminho.Contains(n))
-                        {
-                            Gizmos.color = Color.black;
-                        }
-                    }
                     Gizmos.DrawCube(n.worldPos, Vector3.one * (verticeDiametro - .1f));
                     
                 }
@@ -227,4 +217,4 @@ public class GeradorGrafo : MonoBehaviour
             }
         }
     }
-}
+}   

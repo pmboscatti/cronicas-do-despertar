@@ -1,139 +1,127 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class BuscaAStar : MonoBehaviour
 {
-    public List<Vertice> EncontrarCaminho(Vertice origem, Vertice destino)
+
+    GeradorGrafo grid;
+    ControladorPathFinders controlador;
+
+    void Awake()
     {
-        List<Vertice> caminho = new List<Vertice>();
+        controlador = GetComponent<ControladorPathFinders>();
+        grid = GetComponent<GeradorGrafo>();
+    }
+
+    public void IniciarCaminho(Vector3 origem, Vector3 destino)
+    {
+        StartCoroutine(EncontrarCaminho(origem, destino));
+    }
+
+    IEnumerator EncontrarCaminho(Vector3 origem, Vector3 destino)
+    {
+        Vector3[] pontos = new Vector3[0];
+        bool encontrou = false;
 
         // Criar nós para origem e destino
-        Node startNode = new Node(origem);
-        Node targetNode = new Node(destino);
+        Vertice startNode = grid.GetVerticeFromPosition(origem);
+        Vertice targetNode = grid.GetVerticeFromPosition(destino);
 
-        List<Node> abertos = new List<Node>();
-        HashSet<Node> fechados = new HashSet<Node>();
 
-        abertos.Add(startNode);
+        if (startNode.walkable && targetNode.walkable && startNode != targetNode) {
 
-        while (abertos.Count > 0)
-        {
-            Node atual = abertos[0];
-            for (int i = 1; i < abertos.Count; i++)
+            MinHeap<Vertice> abertos = new MinHeap<Vertice>(grid.gridSize);
+            HashSet<Vertice> fechados = new HashSet<Vertice>();
+
+            abertos.Add(startNode);
+
+            while (abertos.Count > 0)
             {
-                if (abertos[i].f < atual.f || (abertos[i].f == atual.f && abertos[i].h < atual.h))
+                Vertice atual = abertos.RemoveFirst();
+                fechados.Add(atual);
+
+                if (atual == targetNode)
                 {
-                    atual = abertos[i];
-                }
-            }
-
-            abertos.Remove(atual);
-            fechados.Add(atual);
-
-            if (atual.vertice == destino)
-            {
-                caminho = RetracePath(startNode, atual);
-                return caminho;
-            }
-
-            foreach (Vertice vizinho in atual.vertice.vizinhos)
-            {
-                Node vizinhoNode = new Node(vizinho);
-
-                if (!vizinho.walkable || fechados.Contains(vizinhoNode))
-                {
-                    continue;
+                    encontrou = true;
+                    break;
                 }
 
-                float novoG = atual.g + CalculateWeight(atual, vizinhoNode);
-                
-                if (novoG < vizinhoNode.g || !abertos.Contains(vizinhoNode))
+                foreach (Vertice vizinho in grid.GetVizinhos(atual))
                 {
-                    vizinhoNode.g = novoG;
-                    vizinhoNode.h = HeuristicEuclidean(vizinho, destino);
-                    vizinhoNode.pai = atual;
-
-                    if (!abertos.Contains(vizinhoNode))
+                    if (!vizinho.walkable || fechados.Contains(vizinho))
                     {
-                        abertos.Add(vizinhoNode);
+                        continue;
+                    }
+
+                    int novoG = atual.gCost + GetEuclidianDistance(atual, vizinho);
+
+                    if (novoG < vizinho.gCost || !abertos.Contains(vizinho))
+                    {
+                        vizinho.gCost = novoG;
+                        vizinho.hCost = GetEuclidianDistance(vizinho, targetNode);
+                        vizinho.pai = atual;
+
+                        if (!abertos.Contains(vizinho))
+                        {
+                            abertos.Add(vizinho);
+                        }
                     }
                 }
             }
         }
+        yield return null;
+        if(encontrou)
+        {
+            pontos = RetracePath(startNode, targetNode);
+        }
 
-        return caminho;
+        controlador.FimProcessamentoCaminho(pontos, encontrou);
     }
 
-    private List<Vertice> RetracePath(Node origem, Node destino)
+    Vector3[] RetracePath(Vertice origem, Vertice destino)
     {
         List<Vertice> caminho = new List<Vertice>();
-        Node atual = destino;
+        Vertice atual = destino;
 
         while (atual != origem)
         {
-            caminho.Add(atual.vertice);
+            caminho.Add(atual);
             atual = atual.pai;
         }
-
-        caminho.Reverse();
-        return caminho;
+        Vector3[] pontos = CaminhoSimplificado(caminho);
+        Array.Reverse(pontos);  
+        return pontos;
     }
 
-    private float CalculateWeight(Node origem, Node destino)
+    Vector3[] CaminhoSimplificado(List<Vertice> caminho)
     {
-        Vector2 origemPos = origem.vertice.worldPos;
-        Vector2 destinoPos = destino.vertice.worldPos;
+        List<Vector3> pontos = new List<Vector3>();
+        Vector2 direcaoUltima = Vector2.zero;
 
-        Vector2 diff = destinoPos - origemPos;
+        for (int i = 1; i < caminho.Count; i++)
+        {
+            Vector2 direcaoAtual = new Vector2(caminho[i - 1].xPos - caminho[i].xPos, caminho[i - 1].yPos - caminho[i].yPos);
+            if (direcaoAtual != direcaoUltima)
+            {
+                pontos.Add(caminho[i].worldPos);
+            }
+            direcaoUltima = direcaoAtual;
+        }
 
-        float distancia = diff.magnitude;
-
-        if (Mathf.Approximately(distancia, 1f))
-        {
-            if (!CheckForCollisions(origemPos, destinoPos))
-            {
-                return 10f; // Sem colisões, peso 10
-            }
-            else
-            {
-                return Mathf.Infinity; // Com colisões, peso infinito (não é possível atravessar)
-            }
-        }
-        else if (Mathf.Approximately(distancia, Mathf.Sqrt(2)))
-        {
-            if (!CheckForCollisions(origemPos, destinoPos))
-            {
-                return 14f; // Sem colisões, peso 14
-            }
-            else
-            {
-                return Mathf.Infinity; // Com colisões, peso infinito (não é possível atravessar)
-            }
-        }
-        else
-        {
-            return Mathf.Infinity; // Qualquer outra distância é considerada intransponível
-        }
+        return pontos.ToArray();
     }
 
-    private bool CheckForCollisions(Vector2 start, Vector2 end)
+
+    int GetEuclidianDistance(Vertice a, Vertice b)
     {
-        // Lança um raio entre os pontos de início e fim para verificar colisões
-        RaycastHit2D hit = Physics2D.Linecast(start, end);
+        int deltaX = Mathf.Abs(a.xPos - b.xPos); 
+        int deltaY = Mathf.Abs(a.yPos - b.yPos);
 
-        // Se o raio atingir algo, há uma colisão
-        return hit.collider != null;
-    }
-
-    private float HeuristicEuclidean(Vertice a, Vertice b)
-    {
-        float deltaX = b.worldPos.x - a.worldPos.x;
-        float deltaY = b.worldPos.y - a.worldPos.y;
-
-        float distanceSquared = deltaX * deltaX + deltaY * deltaY;
-
-        return Mathf.Sqrt(distanceSquared);
+        if (deltaX > deltaY) return 14 * deltaY + 10 * (deltaX - deltaY);
+        return 14 * deltaX + 10 * (deltaY - deltaX);
     }
 
 }

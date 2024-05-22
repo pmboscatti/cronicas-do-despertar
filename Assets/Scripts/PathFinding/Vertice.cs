@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Vertice
+public class Vertice : ItemHeap<Vertice>
 {
     public bool walkable;
     public Vector3 worldPos;
@@ -13,11 +13,11 @@ public class Vertice
 
     public int id;
 
-    // Campos para A*
-    public float g;
-    public float h;
-    public Vertice pai; // Vértice pai no caminho
-    public List<Vertice> vizinhos; // Vizinhos deste ponto
+    public int gCost;
+    public int hCost;
+
+    public Vertice pai;
+
     
     public Vertice(int id, bool _walkable, Vector3 _worldPos, int _xPos, int _yPos)
     {
@@ -26,13 +26,34 @@ public class Vertice
         yPos = _yPos;
         walkable = _walkable;
         worldPos = _worldPos;
-
-        // Inicializa campos para A*
-        g = Mathf.Infinity;
-        h = 0;
-        pai = null;
-        vizinhos = new List<Vertice>();
     }
 
+    public Vertice(bool _walkable, Vector3 _worldPos, int _xPos, int _yPos)
+    {
+        walkable = _walkable;
+        worldPos = _worldPos;
+        xPos = _xPos;
+        yPos = _yPos;
+    }
 
+    public int fCost
+    {
+        get
+        {
+            return gCost + hCost;
+        }
+    }
+
+    public int IndiceHeap { get; set; }
+
+    public int CompareTo(Vertice other)
+    {
+        int compare = fCost.CompareTo(other.fCost);
+        if(compare == 0)
+        {
+            compare = hCost.CompareTo(other.hCost);
+        }
+
+        return -compare;
+    }
 }
