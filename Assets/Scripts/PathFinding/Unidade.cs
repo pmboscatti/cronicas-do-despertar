@@ -29,26 +29,30 @@ public class Unidade : MonoBehaviour
 
     IEnumerator PercorrerCaminho()
     {
-        Vector3 pontoAtual = caminho[0];
-        while(true)
+        if (caminho != null && caminho.Length > 0)
         {
-            if(indiceAtual < caminho.Length - 1) isoRenderer.SetDirection(caminho[indiceAtual + 1]);
-            if(transform.position == pontoAtual)
+            Vector3 pontoAtual = caminho[0];
+            while (true)
             {
-                indiceAtual++;
-                if(indiceAtual >= caminho.Length)
+                if (indiceAtual < caminho.Length - 1) isoRenderer.SetDirection(caminho[indiceAtual + 1]);
+                if (transform.position == pontoAtual)
                 {
-                    isoRenderer.SetDirection(Vector2.zero);
-                    yield break;
-                }
-                pontoAtual = caminho[indiceAtual];
+                    indiceAtual++;
+                    if (indiceAtual >= caminho.Length)
+                    {
+                        isoRenderer.SetDirection(Vector2.zero);
+                        yield break;
+                    }
+                    pontoAtual = caminho[indiceAtual];
 
+                }
+                isoRenderer.SetDirection(caminho[indiceAtual]);
+                transform.position = Vector3.MoveTowards(transform.position, pontoAtual, velocidade * Time.deltaTime);
+                yield return null;
             }
-            isoRenderer.SetDirection(caminho[indiceAtual]);
-            transform.position = Vector3.MoveTowards(transform.position, pontoAtual, velocidade * Time.deltaTime);
-            yield return null;
+
         }
-;
+
     }
 
     public void OnDrawGizmos()

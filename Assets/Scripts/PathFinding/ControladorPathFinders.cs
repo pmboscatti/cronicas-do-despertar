@@ -9,7 +9,7 @@ public class ControladorPathFinders : MonoBehaviour
     PedidoDeCaminho pedidoAtual;
 
     static ControladorPathFinders instance;
-    BuscaLargura pathfinding;
+    BuscaAStar pathfinding;
 
     bool processandoCaminho;
 
@@ -17,7 +17,7 @@ public class ControladorPathFinders : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        pathfinding = GetComponent<BuscaLargura>();
+        pathfinding = GetComponent<BuscaAStar>();
     }
 
     public static void IniciarCaminho(Vector3 inicio, Vector3 fim, Action<Vector3[], bool> callback)
@@ -33,7 +33,8 @@ public class ControladorPathFinders : MonoBehaviour
         {
             pedidoAtual = filaPedidos.Dequeue();
             processandoCaminho = true;
-            pathfinding.Busca(pedidoAtual.inicioCaminho);
+            // pathfinding.Busca(pedidoAtual.inicioCaminho);
+            pathfinding.IniciarCaminho(pedidoAtual.inicioCaminho, pedidoAtual.fimCaminho);
         }
     }
 

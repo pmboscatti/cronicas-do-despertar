@@ -16734,6 +16734,7 @@ GameObject:
   - component: {fileID: 750046326}
   - component: {fileID: 750046325}
   - component: {fileID: 750046328}
+  - component: {fileID: 750046329}
   m_Layer: 6
   m_Name: NavMesh
   m_TagString: Untagged
@@ -16748,7 +16749,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 750046324}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5008a3b364e4a741a59257d0edf7894, type: 3}
   m_Name: 
@@ -16804,6 +16805,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e5dd065bf9658b458a6e790d93b5dfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &750046329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750046324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cf3b120103948b42a04dbe452d364a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &843182130

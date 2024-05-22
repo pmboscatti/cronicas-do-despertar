@@ -29,6 +29,24 @@ public class MinHeap<T> where T : ItemHeap<T>
         Descer(itens[0]);
         return primeiroItem;
     }
+
+    public void UpdateItem(T item)
+    {
+        Subir(item);
+    }
+
+    public int Count
+    {
+        get
+        {
+            return quantidadeAtual;
+        }
+    }
+
+    public bool Contains(T item)
+    {
+        return Equals(itens[item.IndiceHeap], item);
+    }
    
 
     void Subir(T item)
@@ -86,7 +104,7 @@ public class MinHeap<T> where T : ItemHeap<T>
         itens[b.IndiceHeap] = a;
         int aux = a.IndiceHeap;
         a.IndiceHeap = b.IndiceHeap;
-        a.IndiceHeap = aux;
+        b.IndiceHeap = aux;
     }
 }
 
