@@ -76,7 +76,7 @@ public class BuscaLargura : MonoBehaviour
         }
         else
         {
-            print("Posição invalida");
+            print("Posiï¿½ï¿½o invalida");
         }
 
         controladorPathFinder.FimProcessamentoCaminho(pontos, sucesso);
@@ -114,7 +114,7 @@ public class BuscaLargura : MonoBehaviour
         return false;
     }
     /**
-    a partir do vetor de pai retorna o menor caminho para o vértice de origem
+    a partir do vetor de pai retorna o menor caminho para o vï¿½rtice de origem
     */
     private List<Vertice> getCaminho(int v)
     {

@@ -19,7 +19,6 @@ public class GeradorGrafo : MonoBehaviour
     public Transform player;
     Vertice[,] grid;
 
-
     float verticeDiametro;
     int gridSizeX, gridSizeY;
     int contador;
@@ -61,6 +60,9 @@ public class GeradorGrafo : MonoBehaviour
                 {
                     grid[x, y] = new Vertice(contador++, walkable, worldPoint, x, y);
                 }
+
+                // Adicione os vizinhos de cada vértice
+                grid[x, y].vizinhos = GetVizinhos(grid[x, y]);
             }
         }
     }   
@@ -89,17 +91,39 @@ public class GeradorGrafo : MonoBehaviour
                 if (x == 0 && y == 0) continue;
                 // if (Math.Abs(x) == Math.Abs(y)) continue;
 
-                    int vizinhoX = node.xPos + x;
-                    int vizinhoY = node.yPos + y;
+                int vizinhoX = node.xPos + x;
+                int vizinhoY = node.yPos + y;
 
-                    if(vizinhoX >= 0 && vizinhoX < gridSizeX && vizinhoY >= 0 && vizinhoY < gridSizeY)
+                // Verifica se o vizinho está dentro dos limites do grid
+                if(vizinhoX >= 0 && vizinhoX < gridSizeX && vizinhoY >= 0 && vizinhoY < gridSizeY)
+                {
+                    Vertice vizinho = grid[vizinhoX, vizinhoY];
+
+                    // Se o vizinho for caminhável, adiciona à lista
+                    if (vizinho != null && vizinho.walkable)
                     {
-                        if (grid[vizinhoX, vizinhoY] != null && grid[vizinhoX, vizinhoY].walkable) list.Add(grid[vizinhoX,vizinhoY]);
+                        list.Add(vizinho);
                     }
-                
+                }
             }
         }
         return list;
+    }
+
+    private float CalculateWeight(Vertice current, Vertice neighbor)
+    {
+        float weight = 0f;
+        // Se os vértices são adjacentes, o peso é 10
+        if (Mathf.Abs(current.xPos - neighbor.xPos) <= 1 && Mathf.Abs(current.yPos - neighbor.yPos) <= 1)
+        {
+            weight = 10f;
+        }
+        // Se são diagonais, o peso é 14
+        else
+        {
+            weight = 14f;
+        }
+        return weight;
     }
 
 
@@ -128,14 +152,14 @@ public class GeradorGrafo : MonoBehaviour
     /// </summary>
     /// <param name="vertice"></param>
     /// <returns></returns>
-    /// <exception cref="Exception">Retorna exce��o se o vertice n�o for encontrado</exception>
+    /// <exception cref="Exception">Retorna exce��o se o vertice n�o for encontrado</exception>
     public List<int> GetVizinhos(int vertice)
     {
         Vertice node = GetVertice(vertice);
 
         if (node == null)
         {
-            throw new Exception("Vertice n�o existente");
+            throw new Exception("Vertice n�o existente");
 
         }
 

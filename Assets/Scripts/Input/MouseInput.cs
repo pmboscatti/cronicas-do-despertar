@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class MouseInput : MonoBehaviour
 {
@@ -18,14 +20,21 @@ public class MouseInput : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            // Verifica se o mouse está sobre um elemento de UI para evitar conflitos
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            // Converte a posição do mouse para coordenadas do mundo
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos.z = 0f;
+
+            // Define a posição do objeto do mouse para auxiliar na visualização (opcional)
             transform.position = mouseWorldPos;
             Vertice alvo = grid.GetVerticeFromPosition(this.transform.position);
             if (alvo != null && alvo.walkable)
                 ControladorPathFinders.IniciarCaminho(unidade.transform.position, unidade.alvo.position, unidade.CaminhoEncontrado);
             else
-                print("Posi��o de click invalida.");
+                print("Posi��o de click invalida.");
         }
     }
 }
