@@ -17229,7 +17229,7 @@ MonoBehaviour:
     m_Bits: 256
   useZAxis: 1
   gridWorldSize: {x: 158.5, y: 83.1}
-  raioVertice: 0.2
+  raioVertice: 0.3
   player: {fileID: 1728586960}
   caminhoBuilding: 
 --- !u!4 &750046327
@@ -17644,7 +17644,7 @@ MonoBehaviour:
   clearAtStart: 0
   startOnCollision: 0
   collisionExitOptions: 0
-  textGameObject: {fileID: 990155222}
+  textGameObject: {fileID: 0}
 --- !u!114 &990155225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28609,8 +28609,7 @@ SceneRoots:
   - {fileID: 127071205}
   - {fileID: 310275731}
   - {fileID: 105115651}
-  - {fileID: 249162477}
-  - {fileID: 1774749449}
-  - {fileID: 36491503}
-  - {fileID: 317450493}
-  - {fileID: 1732612279}
+  - {fileID: 37638700}
+  - {fileID: 1107021081}
+  - {fileID: 1482650965}
+  - {fileID: 1543101994}

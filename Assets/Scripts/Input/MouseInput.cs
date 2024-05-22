@@ -21,8 +21,8 @@ public class MouseInput : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             // Verifica se o mouse está sobre um elemento de UI para evitar conflitos
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
+            //if (EventSystem.current.IsPointerOverGameObject())
+               // return;
 
             // Converte a posição do mouse para coordenadas do mundo
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -34,7 +34,7 @@ public class MouseInput : MonoBehaviour
             if (alvo != null && alvo.walkable)
                 ControladorPathFinders.IniciarCaminho(unidade.transform.position, unidade.alvo.position, unidade.CaminhoEncontrado);
             else
-                print("Posi��o de click invalida.");
+                print("Posição de click invalida.");
         }
     }
 }

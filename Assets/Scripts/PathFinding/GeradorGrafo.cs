@@ -60,9 +60,6 @@ public class GeradorGrafo : MonoBehaviour
                 {
                     grid[x, y] = new Vertice(contador++, walkable, worldPoint, x, y);
                 }
-
-                // Adicione os vizinhos de cada vértice
-                grid[x, y].vizinhos = GetVizinhos(grid[x, y]);
             }
         }
     }   
@@ -159,7 +156,7 @@ public class GeradorGrafo : MonoBehaviour
 
         if (node == null)
         {
-            throw new Exception("Vertice n�o existente");
+            throw new Exception("Vertice não existente");
 
         }
 
