@@ -6,18 +6,20 @@ public class Magia : Acao
     public Personagem alvo;
     public int dano;
 
-    public Magia(String nome, int pp,int precisao,int dano):base(nome,pp,precisao)
+    public Magia(String nome, int pp, int precisao, int dano) : base(nome, pp, precisao)
     {
         this.dano = dano;
     }
-    public void DeterminaAtores(Personagem atacante, Personagem alvo){
-    this.atacante=  atacante;
-    this.alvo= alvo;
-    }
-    public Magia(Magia magia,Personagem atacante, Personagem alvo ):base(magia.nome, magia.pp,magia.precisao)
+    public void DeterminaAtores(Personagem atacante, Personagem alvo)
     {
         this.atacante = atacante;
-        this.alvo=alvo;
+        this.alvo = alvo;
+    }
+    public Magia(Magia magia, Personagem atacante, Personagem alvo) : base(magia.nome, magia.pp, magia.precisao)
+    {
+        this.atacante = atacante;
+        this.alvo = alvo;
+        this.dano = magia.dano;
     }
     public override Personagem GetAlvo()
     {
