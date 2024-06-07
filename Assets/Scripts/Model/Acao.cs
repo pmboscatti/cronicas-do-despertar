@@ -14,12 +14,20 @@ public class Acao
     {
         return 0;
     }
+    public static int CalculaDanoPuroAtaque(Personagem atacante, Personagem alvo, int dano)
+    {
+        return (int)(atacante.atk * dano / alvo.def);
+    }
+    public static int CalculaDanoPuroMagia(Personagem atacante, Personagem alvo, int dano)
+    {
+        return (int)(atacante.spatk * dano / alvo.spdef);
+    }
     public virtual Personagem GetAlvo()
     {
         return null;
     }
     public bool ErraAcao()
     {
-        return RNJesus.erraAcao(precisao);
+        return RNJesus.ErraAcao(precisao);
     }
 }

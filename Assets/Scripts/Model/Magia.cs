@@ -27,7 +27,7 @@ public class Magia : Acao
     }
     public override int CalculoDeDano()
     {
-        return (int)(dano * atacante.spatk / alvo.spdef * RNJesus.getRange() * RNJesus.crit());
+        return (int)(dano * atacante.spatk / alvo.spdef * RNJesus.GetRange() * RNJesus.Crit());
 
 
     }

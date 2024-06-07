@@ -11,7 +11,7 @@ public class Ataque : Acao
     public override int CalculoDeDano()
     {
 
-        return (int)(atacante.atk * RNJesus.getRange() * RNJesus.crit() * dano / alvo.def);//tem que inserir um método de pegar o dano do personagem
+        return (int)(atacante.atk * RNJesus.GetRange() * RNJesus.Crit() * dano / alvo.def);//tem que inserir um método de pegar o dano do personagem
 
     }
     public Ataque(Ataque ataque, Personagem atacante, Personagem alvo) : base(ataque.nome, ataque.pp, ataque.precisao)

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 class GrafoDecisao
 {
@@ -62,12 +64,46 @@ class GrafoDecisao
         novo = new(atual);
         AdicionaVertice(novo);
         atual.vizinhos.Add(V);
-        atual.distancia.Add(VerticeIA.distanciaPadrao / (atual.acao.precisao * 4));
+        atual.distancia.Add(VerticeIA.distanciaPadrao /atual.acao.precisao);
+        //dá prioridade para atacar o inimigo que pode causar mais dano
+        atual = novo;
+        novo = new(atual);
+        AdicionaVertice(novo);
+        atual.vizinhos.Add(V);
+        atual.distancia.Add(VerticeIA.distanciaPadrao / Math.Max(MaiorDanoBrutoAtaque(atual.acao.GetAlvo()), MaiorDanoBrutoMagia(atual.acao.GetAlvo())));
         //conectar com o fim do turno.
         novo.vizinhos.Add(0);
         novo.distancia.Add(1);
 
     }
+
+    private int MaiorDanoBrutoAtaque(Personagem atacante)
+    {
+        int maiorDano=1;
+        foreach (Ataque ataque in atacante.GetVetorAtaques())
+        {
+            int dano=Acao.CalculaDanoPuroAtaque(atacante, personagem, ataque.dano);
+            if(dano>maiorDano)
+            {
+                maiorDano=dano;
+            }
+        }
+        return maiorDano;
+    }
+       private int MaiorDanoBrutoMagia(Personagem atacante)
+    {
+        int maiorDano=1;
+        foreach (Magia magia in atacante.GetVetorMagias())
+        {
+            int dano=Acao.CalculaDanoPuroAtaque(atacante, personagem, magia.dano);
+            if(dano>maiorDano)
+            {
+                maiorDano=dano;
+            }
+        }
+        return maiorDano;
+    }
+
     private int VerificaSeAlvoMorre(int dano, Personagem alvo)
     {
         int resultado = 1000;
