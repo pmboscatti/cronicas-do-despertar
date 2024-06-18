@@ -1,9 +1,15 @@
+namespace Assets.Scripts.Model
+{
 public class Inimigo : Personagem
 {
     public int aptidaoAtaqueFisico;
     public int aptidaoMagia;
 
-    public Inimigo(string nome, int hp, int def, int atk, int spatk, int spdef,int velocidade, int aptidaoAtaqueFisico, int aptidaoMagia) :
+        public Inimigo()
+        {
+        }
+
+        public Inimigo(string nome, int hp, int def, int atk, int spatk, int spdef,int velocidade, int aptidaoAtaqueFisico, int aptidaoMagia) :
     base(nome, hp, def, atk, spatk, spdef,velocidade)
     {
 
@@ -15,4 +21,5 @@ public class Inimigo : Personagem
     // public int protegerAliado;
 
 
+}
 }

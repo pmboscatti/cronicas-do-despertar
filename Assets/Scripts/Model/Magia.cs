@@ -1,4 +1,6 @@
 using System;
+namespace Assets.Scripts.Model
+{
 
 public class Magia : Acao
 {
@@ -40,5 +42,30 @@ public class Magia : Acao
         }
         return dano;
     }
-
+    public override Personagem GetAtor()
+        {
+            return atacante;
+        }
+        public override void AtualizaHp()
+        {
+            int dano = RealizaAtaque();
+            if (dano >= this.GetAlvo().hpAtual)
+            {
+                this.GetAlvo().hpAtual = 0;
+                this.GetAlvo().vivo = false;
+            }
+            else
+            {
+                if (dano == 0)
+                {
+                    //precisa aparecer a mensagem que o ataque errou;
+                }
+                else
+                {
+                    this.GetAlvo().hpAtual = this.GetAlvo().hpAtual - dano;
+                }
+            }
+            //precisa chamar o método que atualiza o hp do alvo na tela do jogo;
+        }
+    }
 }

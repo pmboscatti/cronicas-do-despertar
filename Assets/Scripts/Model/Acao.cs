@@ -1,3 +1,5 @@
+namespace Assets.Scripts.Model
+{
 public class Acao
 {
     public string nome;
@@ -21,13 +23,21 @@ public class Acao
     public static int CalculaDanoPuroMagia(Personagem atacante, Personagem alvo, int dano)
     {
         return (int)(atacante.spatk * dano / alvo.spdef);
-    }
+    } 
     public virtual Personagem GetAlvo()
     {
+        return null;
+    }
+    public virtual Personagem GetAtor(){
         return null;
     }
     public bool ErraAcao()
     {
         return RNJesus.ErraAcao(precisao);
     }
+    public virtual void AtualizaHp()
+        {
+            return;
+        }
+}
 }

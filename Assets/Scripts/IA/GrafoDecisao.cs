@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Model;
 using Unity.VisualScripting;
 
 class GrafoDecisao
@@ -8,6 +9,7 @@ class GrafoDecisao
     public List<VerticeIA> array;// primeira posição[0] é o vértice de fim, s
     public int V;//número de vértices
     public static int infinito = 1000000;
+    public bool estaVivo;
     public GrafoDecisao(Inimigo personagem)
     {
         array = new List<VerticeIA>();

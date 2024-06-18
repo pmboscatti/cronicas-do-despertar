@@ -1,4 +1,6 @@
 using System;
+namespace Assets.Scripts.Model
+{
 class RNJesus
 {
     public static float GetRange()
@@ -25,4 +27,4 @@ class RNJesus
         return rd.Next(1, 101) > precisao;
     }
 
-}
+}}

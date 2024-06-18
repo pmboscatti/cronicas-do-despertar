@@ -1,3 +1,7 @@
+using Unity.VisualScripting;
+
+namespace Assets.Scripts.Model
+{
 public class Ataque : Acao
 {
     public Personagem atacante;
@@ -29,7 +33,11 @@ public class Ataque : Acao
     {
         return alvo;
     }
-    public int RealizaAtaque()
+        public override Personagem GetAtor()
+        {
+            return atacante;
+        }
+        private int RealizaAtaque()
     {
         int dano = 0;
         if (ErraAcao() == false)
@@ -38,5 +46,27 @@ public class Ataque : Acao
         }
         return dano;
     }
+        public override void AtualizaHp()
+        {
+            int dano=RealizaAtaque();
+            if (dano>=this.GetAlvo().hpAtual)
+            {
+                this.GetAlvo().hpAtual = 0;
+                this.GetAlvo().vivo = false;
+            }
+            else
+            {
+                if(dano==0)
+                {
+                    //precisa aparecer a mensagem que o ataque errou;
+                }
+                else
+                {
+                    this.GetAlvo().hpAtual = this.GetAlvo().hpAtual - dano;
+                }
+            }
+            //precisa chamar o método que atualiza o hp do alvo na tela do jogo;
+        }
 
+    }
 }

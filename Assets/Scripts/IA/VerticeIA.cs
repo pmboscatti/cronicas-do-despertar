@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.Scripts.Model;
 
 public class VerticeIA
 {
