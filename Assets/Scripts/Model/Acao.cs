@@ -16,6 +16,10 @@ public class Acao
     {
         return 0;
     }
+     public virtual void CalculoCura()
+    {
+        return;
+    }
     public static int CalculaDanoPuroAtaque(Personagem atacante, Personagem alvo, int dano)
     {
         return (int)(atacante.atk * dano / alvo.def);
@@ -39,5 +43,11 @@ public class Acao
         {
             return;
         }
+   
+    public virtual int CalculoDeCura(){
+       
+        return 0; 
+    
+    }
 }
 }

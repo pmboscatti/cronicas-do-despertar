@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.Model;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 namespace Assets.Scripts.IA
     {
     class GrafoDecisao
