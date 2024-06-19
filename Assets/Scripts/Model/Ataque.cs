@@ -46,7 +46,7 @@ public class Ataque : Acao
         }
         return dano;
     }
-        public override void AtualizaHp()
+        public override void efetuaAcao()
         {
             int dano=RealizaAtaque();
             if (dano>=this.GetAlvo().hpAtual)

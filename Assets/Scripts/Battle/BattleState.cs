@@ -65,7 +65,7 @@ namespace Assets.Scripts.Battle
 				Acao acao = heap.ExtractMax();
 				if(acao.GetAtor().vivo&&acao.GetAlvo().vivo)
 				{
-					acao.AtualizaHp();
+					acao.efetuaAcao();
 				}
 				if(acao.GetAlvo().vivo==false)
 				{

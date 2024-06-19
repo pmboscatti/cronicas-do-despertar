@@ -1,6 +1,6 @@
 namespace Assets.Scripts.Model
 {
-    class Cura: Acao{
+    public class Cura: Acao{
     public Personagem ator;
     public Personagem alvo;
     private readonly int curaBase;
@@ -13,7 +13,12 @@ public Cura(string nome, int pp, int precisao, int curaBase) : base(nome, pp, pr
         return (int)(curaBase*RNJesus.GetRange());//tem que inserir um método de pegar o dano do personagem
     
     }
-    public override void AtualizaHp()
+        public void DeterminaAtores(Personagem ator, Personagem alvo)
+        {
+            this.ator = ator;
+            this.alvo = alvo;
+        }
+        public override void efetuaAcao()
     {
         int cura=0;
         if(ErraAcao()==false)

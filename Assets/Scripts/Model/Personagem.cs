@@ -13,6 +13,8 @@ public class Personagem
     public int velocidade;
     public Ataque[] ataques;
     public Magia[] magias;
+    public Status[] status;
+    public Cura[] curas;
     public bool vivo;
 
         public Personagem()

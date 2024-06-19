@@ -39,7 +39,7 @@ public class Acao
     {
         return RNJesus.ErraAcao(precisao);
     }
-    public virtual void AtualizaHp()
+    public virtual void efetuaAcao()
         {
             return;
         }

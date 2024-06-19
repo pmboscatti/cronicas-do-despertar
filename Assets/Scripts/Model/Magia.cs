@@ -46,7 +46,7 @@ public class Magia : Acao
         {
             return atacante;
         }
-        public override void AtualizaHp()
+        public override void efetuaAcao()
         {
             int dano = RealizaAtaque();
             if (dano >= this.GetAlvo().hpAtual)
