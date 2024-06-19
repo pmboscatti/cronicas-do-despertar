@@ -67,6 +67,10 @@ namespace Assets.Scripts.Battle
 				{
 					acao.AtualizaHp();
 				}
+				if(acao.GetAlvo().vivo==false)
+				{
+					//gerar animação de morte do alvo;
+				}
 				
 			}
 		}
