@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+namespace Assets.Scripts.IA{
 public class MinHeap
 {
     private List<(int distancia, int vertice)> _elements = new List<(int distancia, int vertice)>();
@@ -84,4 +85,6 @@ public class MinHeap
         _elements[index1] = _elements[index2];
         _elements[index2] = temp;
     }
+}
+    
 }
