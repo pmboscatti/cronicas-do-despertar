@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Level01.unity
     guid: c0935cb169a16a24c947ac3afef6c805
   - enabled: 1
-    path: Assets/Scenes/Scene_Biome_Empty.unity
-    guid: 4fe0e9a1cc930d74586460273c5ab9b5
+    path: Assets/Scenes/Battle01.unity
+    guid: e650daec92731604c9f68966e2442b2b
   m_configObjects: {}

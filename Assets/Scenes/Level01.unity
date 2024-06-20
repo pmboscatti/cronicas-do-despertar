@@ -574,7 +574,7 @@ PrefabInstance:
       objectReference: {fileID: 1677605958}
     - target: {fileID: 6921322168099851680, guid: f8977a5e6905b434084efd5cd1afc63c, type: 3}
       propertyPath: sceneToLoad
-      value: MenuInicial
+      value: Battle01
       objectReference: {fileID: 0}
     - target: {fileID: 7307583876312038484, guid: f8977a5e6905b434084efd5cd1afc63c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -854,7 +854,7 @@ PrefabInstance:
       objectReference: {fileID: 1732612279}
     - target: {fileID: 6921322168099851680, guid: f8977a5e6905b434084efd5cd1afc63c, type: 3}
       propertyPath: sceneToLoad
-      value: MenuInicial
+      value: Battle01
       objectReference: {fileID: 0}
     - target: {fileID: 7307583876312038484, guid: f8977a5e6905b434084efd5cd1afc63c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17049,7 +17049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6921322168099851680, guid: f8977a5e6905b434084efd5cd1afc63c, type: 3}
       propertyPath: sceneToLoad
-      value: MenuInicial
+      value: Battle01
       objectReference: {fileID: 0}
     - target: {fileID: 7307583876312038484, guid: f8977a5e6905b434084efd5cd1afc63c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17644,7 +17644,7 @@ MonoBehaviour:
   clearAtStart: 0
   startOnCollision: 0
   collisionExitOptions: 0
-  textGameObject: {fileID: 0}
+  textGameObject: {fileID: 990155222}
 --- !u!114 &990155225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24670,7 +24670,7 @@ PrefabInstance:
       objectReference: {fileID: 64755187}
     - target: {fileID: 6921322168099851680, guid: f8977a5e6905b434084efd5cd1afc63c, type: 3}
       propertyPath: sceneToLoad
-      value: MenuInicial
+      value: Battle01
       objectReference: {fileID: 0}
     - target: {fileID: 7307583876312038484, guid: f8977a5e6905b434084efd5cd1afc63c, type: 3}
       propertyPath: m_LocalPosition.x
