@@ -49,14 +49,14 @@ public class Personagem
     {
        return this.magias; 
     }
-   //  public Status [] GetVetorStatus()
-   //  {
-   //     return this.status; 
-   //  }
-   //  public Cura [] GetVetorCuras()
-   //  {
-   //     return this.curas; 
-   //  }
+    public Status [] GetVetorStatus()
+    {
+       return this.status; 
+    }
+    public Cura [] GetVetorCuras()
+    {
+       return this.curas; 
+    }
 }
 }
 

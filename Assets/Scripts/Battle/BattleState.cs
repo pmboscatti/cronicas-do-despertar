@@ -1,4 +1,5 @@
 ﻿
+using Assets.Scripts.IA;
 using Assets.Scripts.Model;
 using System.Collections.Generic;
 
@@ -6,33 +7,31 @@ namespace Assets.Scripts.Battle
 {
 	public class BattleState
 	{
-		public List<Personagem> personagens;
+		public List<Personagem> aliados;
+		public List<Inimigo> inimigos;
 		bool fimDaBatalha;
 
 
 
 		public void AtualizaListaDeVivos()
 		{
-			int aliadosVivos = 0;
-			int inimigosVivos = 0;
-			foreach (Personagem p in personagens)
+
+			foreach (Personagem personagem in aliados)
 			{
-				if (p.vivo)
+				if(personagem.vivo==false)
 				{
-					if (ReferenceEquals(p, new Inimigo()))
-					{
-						inimigosVivos++;
-					}
-					else
-					{
-						aliadosVivos++;
-					}
-				}
-				else
-				{
-					personagens.Remove(p);
+					aliados.Remove(personagem);
 				}
 			}
+			foreach (Inimigo inimigo in inimigos)
+			{
+				if(inimigo.vivo==false)
+				{
+					inimigos.Remove(inimigo);
+				}
+			}
+			int aliadosVivos = aliados.Count;
+			int inimigosVivos = inimigos.Count;
 			if (aliadosVivos == 0)
 			{
 				fimDaBatalha = true;
@@ -49,13 +48,14 @@ namespace Assets.Scripts.Battle
 			}
 		}
 
-		public void CriaMaxHeap(List<Acao> listaAcoes)
+		public MaxHeap CriaMaxHeap(List<Acao> listaAcoes)
 		{
 			MaxHeap heap = new();
 			foreach (Acao acao in listaAcoes)
 			{
 				heap.Insert(acao);
 			}
+			return heap;
 		}
 
 		public void EfetuaAtaques(MaxHeap heap)
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Battle
 				Acao acao = heap.ExtractMax();
 				if(acao.GetAtor().vivo&&acao.GetAlvo().vivo)
 				{
-					acao.efetuaAcao();
+					acao.EfetuaAcao();
 				}
 				if(acao.GetAlvo().vivo==false)
 				{
@@ -74,5 +74,33 @@ namespace Assets.Scripts.Battle
 				
 			}
 		}
+		public void DecisaoIA(List<Acao>lista)
+	{
+		foreach (Inimigo p in inimigos)
+		{
+			if (ReferenceEquals(p, new Inimigo()))
+					{
+						GrafoDecisao grafo=new(p);
+						lista.Add(grafo.Dijkstra());
+
+					}
+		}
 	}
+	public List<Acao> DecisaoJogador()
+	{
+		List<Acao> listaDeAcoes=new List<Acao>();
+
+		//receber a lista de ações de escolha do jogador;
+		return listaDeAcoes;
+	}
+	public void EscolhaDeAcoes()
+	{
+		List<Acao> listaDeAcoes=DecisaoJogador();
+		DecisaoIA(listaDeAcoes);
+		MaxHeap heap=CriaMaxHeap(listaDeAcoes);
+		EfetuaAtaques(heap);
+	}
+	}
+	
+	
 }

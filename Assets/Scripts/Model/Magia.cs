@@ -46,7 +46,7 @@ public class Magia : Acao
         {
             return atacante;
         }
-        public override void efetuaAcao()
+        public override void EfetuaAcao()
         {
             int dano = RealizaAtaque();
             if (dano >= this.GetAlvo().hpAtual)
@@ -65,7 +65,7 @@ public class Magia : Acao
                     this.GetAlvo().hpAtual = this.GetAlvo().hpAtual - dano;
                 }
             }
-            //precisa chamar o método que atualiza o hp do alvo na tela do jogo;
+            //precisa chamar o mï¿½todo que atualiza o hp do alvo na tela do jogo;
         }
     }
 }
