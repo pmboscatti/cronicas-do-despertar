@@ -1,3 +1,4 @@
+using Assets.Scripts.States;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,7 @@ public class CharacterCollisionHandler : MonoBehaviour
         {
             // Carrega a cena
             SceneManager.LoadScene(sceneToLoad);
+            
         }
 
         Debug.Log(other.tag);

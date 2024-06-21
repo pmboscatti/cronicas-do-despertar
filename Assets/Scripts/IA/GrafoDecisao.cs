@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Assets.Scripts.Model;
 namespace Assets.Scripts.IA
     {
@@ -25,17 +26,17 @@ namespace Assets.Scripts.IA
             array.Add(vertice);
             V++;
         }
-        public void CriarGrafo()
+        public void CriarGrafo(List<Personagem> aliados)
         {
-            IteraPorTodosOsAtaques();
-            IteraPorTodasAsMagias();
+            IteraPorTodosOsAtaques(aliados);
+            // IteraPorTodasAsMagias(aliados);
             // IteraPortodasAsCuras();
 
         }
 
-        private void IteraPorTodosOsAtaques()
+        private void IteraPorTodosOsAtaques(List<Personagem> aliados)
         {
-            foreach (Personagem alvo in ListaAlvos())
+            foreach (Personagem alvo in aliados)
             {
                 foreach (Ataque ataque in personagem.GetVetorAtaques())
                 {
@@ -115,9 +116,9 @@ namespace Assets.Scripts.IA
             }
             return resultado;
         }
-        private void IteraPorTodasAsMagias()
+        private void IteraPorTodasAsMagias(List<Personagem> aliados)
         {
-            foreach (Personagem alvo in ListaAlvos())
+            foreach (Personagem alvo in aliados)
             {
                 foreach (Magia magia in personagem.GetVetorMagias())
                 {
@@ -144,27 +145,27 @@ namespace Assets.Scripts.IA
 
         // }
         //Está estático no momento para testes
-        public Personagem[] ListaAlvos()
-        {
-            Personagem cleitinho = new("Cleitinho", 200, 100, 100, 100, 100, 100);
-            Personagem felisberto = new("Felisberto", 200, 160, 120, 110, 130, 101);
-            Ataque[] ataques = new Ataque[2];
-            Magia[] magias = new Magia[2];
-            ataques[0] = new Ataque("ataque de espada", 8, 90, 50);
-            ataques[1] = new Ataque("ataque de espada forte", 8, 80, 70);
-            magias[0] = new Magia("Lança chamas", 8, 90, 50);
-            magias[1] = new Magia("Bola de fogo", 8, 80, 70);
-            cleitinho.ataques = ataques;
-            cleitinho.magias = magias;
-            felisberto.ataques = ataques;
-            felisberto.magias = magias;
-            Personagem[] lista = new Personagem[2];
-            lista[0] = felisberto;
-            lista[1] = cleitinho;
-            return lista;
-        }
+        //public Personagem[] ListaAlvos()
+        //{
+        //    Personagem cleitinho = new("Cleitinho", 200, 100, 100, 100, 100, 100);
+        //    Personagem felisberto = new("Felisberto", 200, 160, 120, 110, 130, 101);
+        //    Ataque[] ataques = new Ataque[2];
+        //    Magia[] magias = new Magia[2];
+        //    ataques[0] = new Ataque("ataque de espada", 8, 90, 50);
+        //    ataques[1] = new Ataque("ataque de espada forte", 8, 80, 70);
+        //    magias[0] = new Magia("Lança chamas", 8, 90, 50);
+        //    magias[1] = new Magia("Bola de fogo", 8, 80, 70);
+        //    cleitinho.ataques = ataques;
+        //    cleitinho.magias = magias;
+        //    felisberto.ataques = ataques;
+        //    felisberto.magias = magias;
+        //    Personagem[] lista = new Personagem[2];
+        //    lista[0] = felisberto;
+        //    lista[1] = cleitinho;
+        //    return lista;
+        //}
 
-        public Acao Dijkstra()
+        public Acao Dijkstra(List<Inimigo> inimigos, List<Personagem> aliados)
         {
             int raiz = 1;
             int objetivo = 0;
@@ -215,9 +216,15 @@ namespace Assets.Scripts.IA
                 }
             }
 
-#pragma warning disable CS8603 // Possible null reference return.
-            return array[predecessores[0]].acao;
-#pragma warning restore CS8603 // Possible null reference return.
+
+            try
+            {
+                return array[predecessores[0]].acao;
+            } catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString()); 
+                return new Ataque(new Ataque("ataque de espada", 8, 90, 50), inimigos[0], aliados[0]);
+            }
 
         }
 

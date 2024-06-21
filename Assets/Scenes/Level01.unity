@@ -17229,7 +17229,7 @@ MonoBehaviour:
     m_Bits: 256
   useZAxis: 1
   gridWorldSize: {x: 158.5, y: 83.1}
-  raioVertice: 0.3
+  raioVertice: 0.325
   player: {fileID: 1728586960}
   caminhoBuilding: 
 --- !u!4 &750046327
@@ -25736,7 +25736,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

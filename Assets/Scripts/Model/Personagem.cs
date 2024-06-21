@@ -1,7 +1,8 @@
 using System;
+using UnityEngine;
 namespace Assets.Scripts.Model
 {
-public class Personagem
+public class Personagem : MonoBehaviour
 {
     public string nome;
     public int hpAtual;
@@ -17,24 +18,38 @@ public class Personagem
     public Cura[] curas;
     public bool vivo;
 
-        public Personagem()
+
+        void Awake()
         {
+            hpAtual = hp;
+            vivo = true;
+
         }
 
-        //  public Status[] status;
-        //  public Cura[] curas;
+        void Update()
+        {
+            if (hpAtual < 1) vivo = false;
+        }
 
-        public Personagem(string nome, int hp, int def, int atk, int spatk, int spdef, int velocidade)
-    {
-        this.nome = nome;
-        this.hp = hp;
-        this.def = def;
-        this.atk = atk;
-        this.spatk = spatk;
-        this.spdef = spdef;
-        this.velocidade = velocidade;
-        this.vivo = true;
-    }
+
+    //    public Personagem()
+    //    {
+    //    }
+
+    //    //  public Status[] status;
+    //    //  public Cura[] curas;
+
+    //    public Personagem(string nome, int hp, int def, int atk, int spatk, int spdef, int velocidade)
+    //{
+    //    this.nome = nome;
+    //    this.hp = hp;
+    //    this.def = def;
+    //    this.atk = atk;
+    //    this.spatk = spatk;
+    //    this.spdef = spdef;
+    //    this.velocidade = velocidade;
+    //    this.vivo = true;
+    //}
 
     /*
   lógica de buff e debuff, baseado em modifier

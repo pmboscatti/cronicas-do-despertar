@@ -817,6 +817,7 @@ GameObject:
   - component: {fileID: 105115651}
   - component: {fileID: 105115650}
   - component: {fileID: 105115649}
+  - component: {fileID: 105115652}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -867,13 +868,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105115648}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &105115652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105115648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c468ec78d5e0ee44bb80409403cdc66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliados: []
+  inimigos: []
+  controlador: {fileID: 1131565778}
 --- !u!1 &107666785
 GameObject:
   m_ObjectHideFlags: 0
@@ -5740,7 +5756,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MP
+  m_text: HP MAX
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3860db31e7ae062428859db1e9f284a7, type: 2}
   m_sharedMaterial: {fileID: 5026047547613893531, guid: 3860db31e7ae062428859db1e9f284a7, type: 2}
@@ -6593,7 +6609,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3306417378606969880, guid: c56793d48f4edff449fec5f3e073e69b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1373944434}
   m_SourcePrefab: {fileID: 100100000, guid: c56793d48f4edff449fec5f3e073e69b, type: 3}
 --- !u!4 &1042617445 stripped
 Transform:
@@ -6619,6 +6638,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1131565777}
+  - component: {fileID: 1131565778}
   m_Layer: 5
   m_Name: Players
   m_TagString: Untagged
@@ -6655,6 +6675,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1131565778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131565776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ab55a1cb7b9e345a680cde97a00f21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1132489069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6775,7 +6807,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3306417378606969880, guid: c56793d48f4edff449fec5f3e073e69b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2051195024}
   m_SourcePrefab: {fileID: 100100000, guid: c56793d48f4edff449fec5f3e073e69b, type: 3}
 --- !u!1001 &1185443961
 PrefabInstance:
@@ -7682,8 +7717,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3306417378606969880, guid: 99beb205a6c18c94bb5bee2d0c944dcb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1684316992}
   m_SourcePrefab: {fileID: 100100000, guid: 99beb205a6c18c94bb5bee2d0c944dcb, type: 3}
+--- !u!1 &1373944432 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3306417378606969880, guid: c56793d48f4edff449fec5f3e073e69b, type: 3}
+  m_PrefabInstance: {fileID: 1042530279}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1373944434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373944432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6fff7520bba034d956b84cdc77e716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nome: "Ti\xE3o"
+  hpAtual: 0
+  hp: 200
+  def: 115
+  atk: 100
+  spatk: 100
+  spdef: 100
+  velocidade: 100
+  vivo: 1
+  aptidaoAtaqueFisico: 8
+  aptidaoMagia: 5
 --- !u!1001 &1385796382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8239,6 +8305,32 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83229535f24538f4a8a82fdb18d3aa22, type: 3}
+--- !u!1 &1515534507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3306417378606969880, guid: 46deea08ed8e84e4893b369d932d59c6, type: 3}
+  m_PrefabInstance: {fileID: 1725083388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1515534509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515534507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd832e4d431e924ab3736230f80177f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nome: Mago
+  hpAtual: 0
+  hp: 200
+  def: 80
+  atk: 20
+  spatk: 180
+  spdef: 130
+  velocidade: 101
+  vivo: 1
 --- !u!1 &1519473882
 GameObject:
   m_ObjectHideFlags: 0
@@ -8528,9 +8620,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cace69f8af8f2f4a86a4f48863a6ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackButton: {fileID: 171966760}
-  defenseButton: {fileID: 2135547931}
-  actionStateTMPText: {fileID: 244250296}
+  corNormal:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  corHover:
+    r: 1
+    g: 0.92156863
+    b: 0.015686275
+    a: 1
+  botaoTexto: {fileID: 0}
+  attackListContainer: {fileID: 0}
+  enemyListContainer: {fileID: 0}
+  buttonPrefab: {fileID: 0}
 --- !u!1 &1674414259
 GameObject:
   m_ObjectHideFlags: 0
@@ -8665,6 +8768,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674414259}
   m_CullTransparentMesh: 1
+--- !u!1 &1684316990 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3306417378606969880, guid: 99beb205a6c18c94bb5bee2d0c944dcb, type: 3}
+  m_PrefabInstance: {fileID: 1368079189}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1684316992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684316990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd832e4d431e924ab3736230f80177f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nome: Guerreiro
+  hpAtual: 0
+  hp: 200
+  def: 150
+  atk: 150
+  spatk: 50
+  spdef: 50
+  velocidade: 50
+  vivo: 1
 --- !u!4 &1694044245 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5169340431650167973, guid: 0d8e7f3fa9268ed40b2891f4edc73cc6, type: 3}
@@ -8910,7 +9039,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3306417378606969880, guid: 46deea08ed8e84e4893b369d932d59c6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1515534509}
   m_SourcePrefab: {fileID: 100100000, guid: 46deea08ed8e84e4893b369d932d59c6, type: 3}
 --- !u!1001 &1810259214
 PrefabInstance:
@@ -9577,6 +9709,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5169340431650167973, guid: 0d8e7f3fa9268ed40b2891f4edc73cc6, type: 3}
   m_PrefabInstance: {fileID: 44877374}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2051195022 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3306417378606969880, guid: c56793d48f4edff449fec5f3e073e69b, type: 3}
+  m_PrefabInstance: {fileID: 1140963869}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2051195024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051195022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6fff7520bba034d956b84cdc77e716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nome: "Tonh\xE3o"
+  hpAtual: 0
+  hp: 100
+  def: 100
+  atk: 100
+  spatk: 100
+  spdef: 100
+  velocidade: 100
+  vivo: 1
+  aptidaoAtaqueFisico: 5
+  aptidaoMagia: 8
 --- !u!1 &2075554541
 GameObject:
   m_ObjectHideFlags: 0
@@ -10021,9 +10181,9 @@ SceneRoots:
   - {fileID: 16781415}
   - {fileID: 127071205}
   - {fileID: 310275731}
-  - {fileID: 105115651}
   - {fileID: 1368079189}
   - {fileID: 1725083388}
   - {fileID: 1395670275}
   - {fileID: 1140963869}
   - {fileID: 1042530279}
+  - {fileID: 105115651}
