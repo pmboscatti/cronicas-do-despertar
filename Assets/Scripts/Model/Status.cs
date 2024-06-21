@@ -23,7 +23,7 @@ namespace Assets.Scripts.Model
         {
             return ator;
         }
-        public override void efetuaAcao()
+        public override void EfetuaAcao()
         {
                 if(ErraAcao()==false)
                 {

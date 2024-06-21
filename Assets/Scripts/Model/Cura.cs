@@ -18,7 +18,7 @@ public Cura(string nome, int pp, int precisao, int curaBase) : base(nome, pp, pr
             this.ator = ator;
             this.alvo = alvo;
         }
-        public override void efetuaAcao()
+        public override void EfetuaAcao()
     {
         int cura=0;
         if(ErraAcao()==false)
