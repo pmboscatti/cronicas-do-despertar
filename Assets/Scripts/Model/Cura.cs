@@ -1,44 +1,56 @@
 namespace Assets.Scripts.Model
 {
-    public class Cura: Acao{
+    public class Cura: Acao {
     public Personagem ator;
     public Personagem alvo;
     private readonly int curaBase;
-public Cura(string nome, int pp, int precisao, int curaBase) : base(nome, pp, precisao)
+
+    public AudioSource healAudio;
+    public AudioSource healMissedAudio;
+
+    public Cura(string nome, int pp, int precisao, int curaBase) : base(nome, pp, precisao)
     {
         this.curaBase = curaBase;
     }
-   public override int CalculoDeCura(){
-       
+
+    public override int CalculoDeCura()
+    {
         return (int)(curaBase*RNJesus.GetRange());//tem que inserir um método de pegar o dano do personagem
-    
     }
-        public void DeterminaAtores(Personagem ator, Personagem alvo)
-        {
-            this.ator = ator;
-            this.alvo = alvo;
-        }
-        public override void EfetuaAcao()
+    public void DeterminaAtores(Personagem ator, Personagem alvo)
+    {
+        this.ator = ator;
+        this.alvo = alvo;
+    }
+
+
+    // METODO PRINCIPAL EFETUAR CURA
+    public override void EfetuaAcao()
     {
         int cura=0;
-        if(ErraAcao()==false)
+        
+        if (ErraAcao() == false)
         {
-            cura=CalculoDeCura();
+            cura = CalculoDeCura();
         }
-        if (cura>0)
+        
+        if (cura > 0)
         {
-            if(this.alvo.hpAtual+cura>alvo.hp)
+            if (this.alvo.hpAtual+cura>alvo.hp)
             {
                 alvo.hpAtual=alvo.hp;
             }
-            else{
+            else {
                 alvo.hpAtual+=cura;
             }
             //mensagem de cura efetuada
+            healAudio.Play();
         }
-        else{
+        
+        else {
             //mensagem de erro na cura
+            healMissedAudio.Play();
         }
     }  
-}
+    }
 }

@@ -3,8 +3,8 @@ namespace Assets.Scripts.Model
 public class Acao
 {
     public string nome;
-    public int pp;//powerpoint
-    public int precisao;//varia de 1 a 100, sendo garantido que acertará, não pode ser zero
+    public int pp; //powerpoint
+    public int precisao; //varia de 1 a 100, sendo garantido que acertará, não pode ser zero
 
     public Acao(string nome, int pp, int precisao)
     {

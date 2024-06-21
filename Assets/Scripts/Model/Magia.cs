@@ -8,6 +8,10 @@ public class Magia : Acao
     public Personagem alvo;
     public int dano;
 
+    public AudioSource magicDamageAudio;
+    public AudioSource magicDamageCriticalAudio;
+    public AudioSource magicDamageMissedAudio;
+
     public Magia(String nome, int pp, int precisao, int dano) : base(nome, pp, precisao)
     {
         this.dano = dano;
@@ -30,9 +34,10 @@ public class Magia : Acao
     public override int CalculoDeDano()
     {
         return (int)(dano * atacante.spatk / alvo.spdef * RNJesus.GetRange() * RNJesus.Crit());
-
-
     }
+    
+    
+    
     public int RealizaAtaque()
     {
         int dano = 0;
@@ -42,10 +47,15 @@ public class Magia : Acao
         }
         return dano;
     }
+    
+    
     public override Personagem GetAtor()
         {
             return atacante;
         }
+        
+        
+        // METODO PRINCIPAL EFETUAR MAGIA
         public override void EfetuaAcao()
         {
             int dano = RealizaAtaque();
@@ -59,10 +69,17 @@ public class Magia : Acao
                 if (dano == 0)
                 {
                     //precisa aparecer a mensagem que o ataque errou;
+                    magicDamageMissedAudio.Play();
                 }
                 else
                 {
-                    this.GetAlvo().hpAtual = this.GetAlvo().hpAtual - dano;
+                    if (/*for critico*/) {
+                        this.GetAlvo().hpAtual = this.GetAlvo().hpAtual - dano;
+                        magicDamageCriticalAudio.Play();
+                    } else {
+                        this.GetAlvo().hpAtual = this.GetAlvo().hpAtual - dano;
+                        magicDamageAudio.Play();
+                    }
                 }
             }
             //precisa chamar o m�todo que atualiza o hp do alvo na tela do jogo;
