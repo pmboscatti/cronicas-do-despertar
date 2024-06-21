@@ -1,6 +1,6 @@
 cff-version: 1.0.1
 message: Please cite this software using these metadata.
-title: Crônicas do despertar
+title: Crônicas do Despertar
 authors:
   - family-names: Guilherme Gomes Pego
     given-names: Allan
@@ -8,12 +8,16 @@ authors:
     given-names: Fernando
   - family-names: Malta Boscatti
     given-names: Pedro 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names:
+  - family-names: Sebastião Pinto
+    given-names: Julia Nathalia
+  - family-names: Moreira Ribeiro Barreto
+    given-names: Lucas
+  - family-names: Augusto Carbonaro Golçalves
+    given-names: Pedro
+  - family-names: Damasceno Satuf
+    given-names: Sofia
+  - family-names: de Araujo Cunha Lisboa
+    given-names: Nathan
   - name-suffix: 
     affiliation: PUC Minas
     family-names: 
@@ -27,9 +31,10 @@ authors:
     family-names: Neri Nobre
     given-names: Cristiane 
 keywords:  
-  - 
-  - 
-repository-code: 
+  - Jogos
+  - Inteligência Artificial
+  - Grafos
+repository-code: https://github.com/pmboscatti/cronicas-do-despertar
 license: CC-BY-4.0
 version: 1.0.0
 date-released: 2022-07-14
