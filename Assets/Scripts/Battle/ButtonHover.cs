@@ -11,16 +11,16 @@ public class ButtonHoverTMP : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     void Start()
     {
-        // Obtém a referência ao componente TextMeshProUGUI do botão
+        // Obtï¿½m a referï¿½ncia ao componente TextMeshProUGUI do botï¿½o
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
 
         if (buttonText == null)
         {
-            Debug.LogError("Não foi possível encontrar o componente TextMeshProUGUI no botão.");
+            Debug.LogError("Nï¿½o foi possï¿½vel encontrar o componente TextMeshProUGUI no botï¿½o.");
         }
     }
 
-    // Método chamado quando o mouse entra no botão
+    // Mï¿½todo chamado quando o mouse entra no botï¿½o
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (buttonText != null)
@@ -29,7 +29,7 @@ public class ButtonHoverTMP : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
     }
 
-    // Método chamado quando o mouse sai do botão
+    // Mï¿½todo chamado quando o mouse sai do botï¿½o
     public void OnPointerExit(PointerEventData eventData)
     {
         if (buttonText != null)
