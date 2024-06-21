@@ -19,17 +19,16 @@ public class GeradorGrafo : MonoBehaviour
     public Transform player;
     Vertice[,] grid;
 
-
     float verticeDiametro;
     int gridSizeX, gridSizeY;
     int contador;
 
-    public float gridSize
+    public int gridSize
     {
         get { return (gridSizeX * gridSizeY); }
     }
 
-    void Start()
+    void Awake()
     {
         contador = 0;
         verticeDiametro = raioVertice * 2;
@@ -86,20 +85,42 @@ public class GeradorGrafo : MonoBehaviour
         {
             for(int y = -1; y <= 1; y++)
             {
-                // if (x == 0 && y == 0) continue;
-                if (Math.Abs(x) == Math.Abs(y)) continue;
+                if (x == 0 && y == 0) continue;
+                // if (Math.Abs(x) == Math.Abs(y)) continue;
 
-                    int vizinhoX = node.xPos + x;
-                    int vizinhoY = node.yPos + y;
+                int vizinhoX = node.xPos + x;
+                int vizinhoY = node.yPos + y;
 
-                    if(vizinhoX >= 0 && vizinhoX < gridSizeX && vizinhoY >= 0 && vizinhoY < gridSizeY)
+                // Verifica se o vizinho está dentro dos limites do grid
+                if(vizinhoX >= 0 && vizinhoX < gridSizeX && vizinhoY >= 0 && vizinhoY < gridSizeY)
+                {
+                    Vertice vizinho = grid[vizinhoX, vizinhoY];
+
+                    // Se o vizinho for caminhável, adiciona à lista
+                    if (vizinho != null && vizinho.walkable)
                     {
-                        if (grid[vizinhoX, vizinhoY] != null && grid[vizinhoX, vizinhoY].walkable) list.Add(grid[vizinhoX,vizinhoY]);
+                        list.Add(vizinho);
                     }
-                
+                }
             }
         }
         return list;
+    }
+
+    private float CalculateWeight(Vertice current, Vertice neighbor)
+    {
+        float weight = 0f;
+        // Se os vértices são adjacentes, o peso é 10
+        if (Mathf.Abs(current.xPos - neighbor.xPos) <= 1 && Mathf.Abs(current.yPos - neighbor.yPos) <= 1)
+        {
+            weight = 10f;
+        }
+        // Se são diagonais, o peso é 14
+        else
+        {
+            weight = 14f;
+        }
+        return weight;
     }
 
 
@@ -128,14 +149,14 @@ public class GeradorGrafo : MonoBehaviour
     /// </summary>
     /// <param name="vertice"></param>
     /// <returns></returns>
-    /// <exception cref="Exception">Retorna exce��o se o vertice n�o for encontrado</exception>
+    /// <exception cref="Exception">Retorna exce��o se o vertice n�o for encontrado</exception>
     public List<int> GetVizinhos(int vertice)
     {
         Vertice node = GetVertice(vertice);
 
         if (node == null)
         {
-            throw new Exception("Vertice n�o existente");
+            throw new Exception("Vertice não existente");
 
         }
 
@@ -162,7 +183,7 @@ public class GeradorGrafo : MonoBehaviour
     }
 
 
-    public Stack<Vertice> caminho;
+    public List<Vertice> caminho;
     public List<int> caminhoBuilding;
     void OnDrawGizmos()
     {
@@ -186,17 +207,6 @@ public class GeradorGrafo : MonoBehaviour
                     {
                         if (n == v) Gizmos.color = Color.yellow;
                     }
-                    if (caminho != null)
-                    {
-                        //if (caminhoBuilding.Contains(n.id))
-                        //{
-                        //    Gizmos.color = Color.cyan;
-                        //}
-                        if (caminho.Contains(n))
-                        {
-                            Gizmos.color = Color.black;
-                        }
-                    }
                     Gizmos.DrawCube(n.worldPos, Vector3.one * (verticeDiametro - .1f));
                     
                 }
@@ -204,4 +214,4 @@ public class GeradorGrafo : MonoBehaviour
             }
         }
     }
-}
+}   
