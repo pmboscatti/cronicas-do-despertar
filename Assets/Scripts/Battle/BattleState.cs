@@ -154,7 +154,7 @@ namespace Assets.Scripts.Battle
 	{
 		IniciaAliados();
 		IniciaInimigos();
-
+		
 	}
 	//estado de escolha
 	public void EstadoEscolha()

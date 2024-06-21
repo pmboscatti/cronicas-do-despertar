@@ -1,35 +1,120 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // Adicione esta linha para usar TextMesh Pro
+using TMPro;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
+using Assets.Scripts.Model;
 
-public class PlayerActions : MonoBehaviour
+public class ButtonHoverTMP : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public Button attackButton;
-    public Button defenseButton;
-    public TMP_Text actionStateTMPText; // Componente TMP_Text da UI para mostrar o estado da a��o
-    private string actionState; // Vari�vel privada que ser� atualizada
+    public Color corNormal = Color.white;
+    public Color corHover = Color.yellow;
+    public TextMeshProUGUI botaoTexto;
+
+    private string selectedAttack;
+    private GameObject selectedEnemy;
+
+    [Header("UI Elements")]
+    public GameObject attackListContainer;
+    public GameObject enemyListContainer;
+    public Button buttonPrefab;
 
     void Start()
     {
-        // Adiciona listeners aos bot�es
-        attackButton.onClick.AddListener(OnAttackButtonClick);
-        defenseButton.onClick.AddListener(OnDefenseButtonClick);
+        // Obtém a referência ao componente TextMeshProUGUI do botão
+        botaoTexto = GetComponentInChildren<TextMeshProUGUI>();
+
+        if (botaoTexto == null)
+        {
+            Debug.LogError("Não foi possível encontrar o componente TextMeshProUGUI no botão.");
+        }
+
+        // Hide enemy list container at the start
+        enemyListContainer.SetActive(false);
     }
 
-    void OnAttackButtonClick()
+    // Método chamado quando o mouse entra no botão
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        actionState = "Attack";
-        UpdateActionStateText();
+        if (botaoTexto != null)
+        {
+            botaoTexto.color = corHover;
+        }
     }
 
-    void OnDefenseButtonClick()
+    // Método chamado quando o mouse sai do botão
+    public void OnPointerExit(PointerEventData eventData)
     {
-        actionState = "Defense";
-        UpdateActionStateText();
+        if (botaoTexto != null)
+        {
+            botaoTexto.color = corNormal;
+        }
     }
 
-    void UpdateActionStateText()
+    // Método para exibir a lista de ataques
+    public void DisplayAttackList(string[] attacks)
     {
-        actionStateTMPText.text = "Action State: " + actionState;
+        attackListContainer.SetActive(true);
+        enemyListContainer.SetActive(false);
+
+        // Clear existing buttons
+        foreach (Transform child in attackListContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Create buttons for each attack
+        foreach (var attack in attacks)
+        {
+            var button = Instantiate(buttonPrefab, attackListContainer.transform);
+            var text = button.GetComponentInChildren<TextMeshProUGUI>();
+            text.text = attack;
+
+            button.onClick.AddListener(() => SelectAttack(attack));
+        }
+    }
+
+    // Método chamado ao clicar em um ataque
+    private void SelectAttack(string attack)
+    {
+        selectedAttack = attack;
+        Debug.Log("Ataque selecionado: " + selectedAttack);
+
+        // Hide attack list and show enemy list
+        attackListContainer.SetActive(false);
+        enemyListContainer.SetActive(true);
+    }
+
+    // Método para exibir a lista de inimigos
+    public void DisplayEnemyList(List<GameObject> enemies)
+    {
+        enemyListContainer.SetActive(true);
+        attackListContainer.SetActive(false);
+
+        // Clear existing buttons
+        foreach (Transform child in enemyListContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Create buttons for each enemy
+        foreach (var enemy in enemies)
+        {
+            var button = Instantiate(buttonPrefab, enemyListContainer.transform);
+            var text = button.GetComponentInChildren<TextMeshProUGUI>();
+            text.text = enemy.name;
+
+            button.onClick.AddListener(() => SelectEnemy(enemy));
+        }
+    }
+
+    // Método chamado ao clicar em um inimigo
+    private void SelectEnemy(GameObject enemy)
+    {
+        selectedEnemy = enemy;
+        Debug.Log("Inimigo selecionado: " + selectedEnemy.name);
+
+        // Optionally, hide the enemy list after selection
+        enemyListContainer.SetActive(false);
     }
 }
